@@ -40,6 +40,24 @@ namespace Karnaugh_Logic.Interfaces
             get;
             set;
         }
+
+        /// <summary>
+        /// trueとなる論理値の組み合わせを追加
+        /// </summary>
+        /// <param name="">論理値組み合わせ(リストの要素数は変数の数と同じ)</param>
+        void addTrueList(List<bool>　trueList);
+
+        /// <summary>
+        /// falseとなる論理値の組み合わせ
+        /// </summary>
+        /// <param name="falseList">論理値組み合わせ(リストの要素数は変数の数と同じ)</param>
+        void addFalseList(List<bool> falseList);
+
+        /// <summary>
+        /// nullとなる論理値の組み合わせ
+        /// </summary>
+        /// <param name="nullList">論理値の組み合わせ(リストの要素数は変数の数と同じ</param>
+        void addNullList(List<bool> nullList);
     }
 
     /// <summary>
@@ -85,7 +103,5 @@ namespace Karnaugh_Logic.Interfaces
         /// </summary>
         /// <returns>簡略化後の変数データ</returns>
         IKarnoughLogic optimize();
-
-
     }
 }
