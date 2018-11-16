@@ -11,6 +11,10 @@ namespace Karnaugh_Logic
     /// </summary>
     class LogicTable : Interfaces.ILogicTable
     {
+        /// <summary>
+        /// 変数名
+        /// </summary>
+        public List<string> valueNames { get; set; }
 
         /// <summary>
         /// 論理式が1となる変数の組み合わせ

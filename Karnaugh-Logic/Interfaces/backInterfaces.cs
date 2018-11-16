@@ -6,11 +6,24 @@ using System.Threading.Tasks;
 
 namespace Karnaugh_Logic.Interfaces
 {
+
+    /// <summary>
+    /// 変数名を扱うインターフェイス
+    /// </summary>
+    interface IValueName
+    {
+        List<string> valueNames
+        {
+            get;
+            set;
+        }
+    }
+
     /// <summary>
     /// 真理値表のデータ形式のインターフェース
     /// List<bool>の変数の数は論理式の変数の数と同じ
     /// </summary>
-    interface ILogicTable
+    interface ILogicTable : IValueName
     {
         /// <summary>
         /// 論理式が1となる変数の組み合わせ
@@ -64,7 +77,7 @@ namespace Karnaugh_Logic.Interfaces
     /// カルノー図による簡略化後のデータのインターフェース
     /// 各変数の積
     /// </summary>
-    interface IKarnoughLogic
+    interface IKarnoughLogic : IValueName
     {
         /// <summary>
         /// List<byte>の変数の数は論理値の変数と同じ。
