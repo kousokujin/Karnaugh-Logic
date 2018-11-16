@@ -74,6 +74,19 @@ namespace Karnaugh_Logic.Interfaces
     }
 
     /// <summary>
+    /// 文字列で表された論理式から真理値表を作成
+    /// </summary>
+    interface IToLogicTable : IValueName
+    {
+        /// <summary>
+        /// 論理式から真理値表を作るメソッド
+        /// </summary>
+        /// <param name="LogicStr">論理式</param>
+        /// <returns>真理値表</returns>
+        ILogicTable convertLogicTable(string LogicStr);
+    }
+
+    /// <summary>
     /// カルノー図による簡略化後のデータのインターフェース
     /// 各変数の積
     /// </summary>
