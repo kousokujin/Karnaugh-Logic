@@ -10,11 +10,37 @@ using System.Windows.Forms;
 
 namespace Karnaugh_Logic
 {
-    public partial class Form1 : Form
+    public partial class mainWindow : Form
     {
-        public Form1()
+        private KarnaughGraphControl karnaughCnt = null;
+
+        public mainWindow()
         {
             InitializeComponent();
+            karnaughCnt = new KarnaughGraphControl();
+            this.mainSplitContainer.Panel2.Controls.Add(karnaughCnt);
+
+        }
+
+        private void mainWindow_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void mainWindow_Paint(object sender, PaintEventArgs e)
+        {
+            //device.Clear(ClearFlags.Target, Color.FromArgb(0x333333), 1.0f, 0);
+            //device.BeginScene();
+            //device.EndScene();
+            //device.Present();
+        }
+
+        private void mainWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+           // if (device != null)
+            //{
+            //    device.Dispose();
+            //    device = null;
+           //}
         }
     }
 }
