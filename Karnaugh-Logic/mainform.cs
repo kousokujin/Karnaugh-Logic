@@ -18,6 +18,8 @@ namespace Karnaugh_Logic
         {
             InitializeComponent();
             karnaughCnt = new KarnaughGraphControl();
+            karnaughCnt.Width = this.mainSplitContainer.Panel2.Width;
+            karnaughCnt.Height = this.mainSplitContainer.Panel2.Height;
             this.mainSplitContainer.Panel2.Controls.Add(karnaughCnt);
 
         }

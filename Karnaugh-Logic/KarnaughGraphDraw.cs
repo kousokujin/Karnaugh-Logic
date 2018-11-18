@@ -5,8 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-using Microsoft.DirectX;
-using Microsoft.DirectX.Direct3D;
+using SharpDX;
+using SharpDX.Direct2D1;
+using SharpDX.DirectWrite;
+using SharpDX.Mathematics.Interop;
+
 
 namespace Karnaugh_Logic
 {
@@ -15,21 +18,28 @@ namespace Karnaugh_Logic
     /// </summary>
     public class KarnaughGraphDraw : IDisposable
     {
-        private Device device = null;
+        //private Device device;
+        private WindowRenderTarget render;
+        private KarnaughGraphControl target;
+
+        //解像度
+        private int width;
+        private int height;
+
 
         public KarnaughGraphDraw(KarnaughGraphControl target)
         {
-            PresentParameters pp = new PresentParameters();
-            pp.Windowed = true;
-            pp.SwapEffect = SwapEffect.Discard;
+            this.width = target.Width;
+            this.height = target.Height;
 
-            device = new Device(
-                0,
-                DeviceType.Hardware,
-                target,
-                CreateFlags.HardwareVertexProcessing,
-                pp
-                );
+            var hwnd = new HwndRenderTargetProperties();
+            hwnd.Hwnd = target.Handle;
+            hwnd.PixelSize = new Size2(this.width, this.height);
+
+            var factory = new SharpDX.Direct2D1.Factory();
+            render = new SharpDX.Direct2D1.WindowRenderTarget(factory, new RenderTargetProperties(), hwnd);
+            this.target = target;
+
         }
 
         /// <summary>
@@ -37,10 +47,10 @@ namespace Karnaugh_Logic
         /// </summary>
         public void Dispose()
         {
-            if (device != null)
+            if(render != null)
             {
-                device.Dispose();
-                device = null;
+                render.Dispose();
+                render = null;
             }
         }
 
@@ -49,13 +59,17 @@ namespace Karnaugh_Logic
         /// </summary>
         public void Paint()
         {
-            if (device == null) return;
+            render.BeginDraw();
 
-            device.Clear(ClearFlags.Target, Color.FromArgb(0x333333), 1.0f, 0);
+            render.Clear(new RawColor4(0.3f, 0.3f, 0.3f, 0f));
 
-            device.BeginScene();
-            device.EndScene();
-            device.Present();
+            var fontFactory = new SharpDX.DirectWrite.Factory();
+            var textFormat = new TextFormat(fontFactory, "メイリオ", 24.0f);
+            textFormat.TextAlignment = TextAlignment.Center;
+            var textBrush = new SharpDX.Direct2D1.SolidColorBrush(render, new RawColor4(1f, 1f, 1f, 1f));
+            render.DrawText("ここにカルノー図が表示されます", textFormat, new RawRectangleF(10, (this.height/2)-12, target.Width-10, target.Height-10), textBrush, DrawTextOptions.None);
+
+            render.EndDraw();
         }
     }
 }

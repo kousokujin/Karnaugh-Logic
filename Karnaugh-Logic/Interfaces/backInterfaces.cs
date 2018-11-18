@@ -107,27 +107,37 @@ namespace Karnaugh_Logic.Interfaces
     /// <summary>
     /// カルノー図インターフェース
     /// </summary>
-    interface IKarnoughMap
+    interface IKarnoughMap : IValueName
     {
+        /// <summary>
+        /// カルノー図の次元(3次元が最大)
+        /// </summary>
+        int dimension { get; set; }
+
         /// <summary>
         /// パラメーターで指定したカルノー図の値を返す。
         /// </summary>
         /// <param name="x">x座標</param>
         /// <param name="y">y座標</param>
         /// <param name="z">z座標(2次元の時は0)</param>
-        /// <returns></returns>
-        byte getMapPoint(int x, int y, int z = 0);
+        /// <returns>カルノー図の要素</returns>
+        IKarnoughComponent getMapPoint(int x, int y, int z = 0);
 
-        /// <summary>
-        /// ILogicTableからカルノー図を生成する。
-        /// </summary>
-        /// <param name="table">真理値表</param>
-        void createMap(ILogicTable table);
-
-        /// <summary>
-        /// 簡略化の実行
-        /// </summary>
-        /// <returns>簡略化後の変数データ</returns>
-        IKarnoughLogic optimize();
     }
+}
+
+/// <summary>
+/// カルノー図の要素インターフェース
+/// </summary>
+interface IKarnoughComponent
+{
+    /// <summary>
+    /// カルノー図の要素
+    /// </summary>
+    byte values { get; set; }
+    
+    /// <summary>
+    /// ブロック化後のブロック番号
+    /// </summary>
+    byte blockValue { get; set; }
 }

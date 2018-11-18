@@ -70,6 +70,7 @@
             // mainSplitContainer
             // 
             this.mainSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainSplitContainer.IsSplitterFixed = true;
             this.mainSplitContainer.Location = new System.Drawing.Point(0, 25);
             this.mainSplitContainer.Name = "mainSplitContainer";
             // 

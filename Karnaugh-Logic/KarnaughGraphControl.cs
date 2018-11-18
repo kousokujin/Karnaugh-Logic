@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace Karnaugh_Logic
 {
     /// <summary>
@@ -27,6 +26,8 @@ namespace Karnaugh_Logic
 
         private void KarnaughGraphControl_Paint(object sender, PaintEventArgs e)
         {
+            System.Console.WriteLine("drawbefore");
+            //drawer = new KarnaughGraphDraw(this);
             drawer.Paint();
         }
     }

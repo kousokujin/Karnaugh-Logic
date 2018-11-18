@@ -35,6 +35,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "KarnaughGraphControl";
+            this.Size = new System.Drawing.Size(576, 502);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.KarnaughGraphControl_Paint);
             this.ResumeLayout(false);
 
