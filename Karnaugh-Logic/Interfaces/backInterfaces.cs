@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Karnaugh_Logic;
 
 namespace Karnaugh_Logic.Interfaces
 {
@@ -94,9 +95,8 @@ namespace Karnaugh_Logic.Interfaces
     {
         /// <summary>
         /// List<byte>の変数の数は論理値の変数と同じ。
-        /// 0:false 1:true  2:なし
         /// </summary>
-        List<List<byte>> values
+        List<List<TruthValue>> values
         {
             get;
             set;
@@ -134,7 +134,7 @@ interface IKarnoughComponent
     /// <summary>
     /// カルノー図の要素
     /// </summary>
-    byte values { get; set; }
+    TruthValue values { get; set; }
     
     /// <summary>
     /// ブロック化後のブロック番号

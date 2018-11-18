@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="enums.cs" />
     <Compile Include="Interfaces\FrontEndInterface.cs" />
     <Compile Include="mainform.cs">
       <SubType>Form</SubType>
