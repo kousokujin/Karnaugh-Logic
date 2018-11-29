@@ -110,6 +110,7 @@
             this.RunButton.TabIndex = 2;
             this.RunButton.Text = "簡略化";
             this.RunButton.UseVisualStyleBackColor = true;
+            this.RunButton.Click += new System.EventHandler(this.RunButton_Click);
             // 
             // LogicTexBox
             // 
@@ -140,8 +141,6 @@
             this.MaximizeBox = false;
             this.Name = "mainWindow";
             this.Text = "カルノー図簡略化ツール";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.mainWindow_FormClosed);
-            this.Load += new System.EventHandler(this.mainWindow_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.mainWindow_Paint);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

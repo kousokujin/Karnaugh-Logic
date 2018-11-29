@@ -24,10 +24,6 @@ namespace Karnaugh_Logic
 
         }
 
-        private void mainWindow_Load(object sender, EventArgs e)
-        {
-        }
-
         private void mainWindow_Paint(object sender, PaintEventArgs e)
         {
             //device.Clear(ClearFlags.Target, Color.FromArgb(0x333333), 1.0f, 0);
@@ -43,6 +39,11 @@ namespace Karnaugh_Logic
             //    device.Dispose();
             //    device = null;
            //}
+        }
+
+        private void RunButton_Click(object sender, EventArgs e)
+        {
+            karnaughCnt.testDraw();
         }
     }
 }

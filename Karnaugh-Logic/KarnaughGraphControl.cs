@@ -30,5 +30,10 @@ namespace Karnaugh_Logic
             //drawer = new KarnaughGraphDraw(this);
             drawer.Paint();
         }
+
+        public void testDraw()
+        {
+            drawer.Value2Map();
+        }
     }
 }
