@@ -102,7 +102,7 @@ namespace Karnaugh_Logic
         //2変数
         public void Value2Map()
         {
-            int valueCount = 2;
+            int valueCount = 5;
             render.BeginDraw();
 
             render.Clear(background);
@@ -182,6 +182,31 @@ namespace Karnaugh_Logic
                 int y_end = margin + (ColumHeight * 2);
                 render.DrawText(rowStr[i], textFormat, new RawRectangleF(x_start, y_start, x_end,y_end), textBrush, DrawTextOptions.None);
             }
+
+            //行のインデックス
+
+            //レイヤー作成
+            /*
+            var layer = new SharpDX.Direct2D1.Layer(render);
+            var lp = new SharpDX.Direct2D1.LayerParameters();
+            lp.ContentBounds = new RawRectangleF(0, 0, width, height);
+            lp.MaskTransform = TransrationMatrix(0, 0, 0 / Math.PI);
+            render.PushLayer(ref lp, layer);
+
+            for (int i = 0; i < rowCount; i++)
+            {
+                int x_shift = margin + (RowWidth * 2)+ 10;
+                int x_start = x_shift + (valueWidth * i);
+                int x_end = x_shift + (valueWidth * (i + 1));
+
+                int y_start = margin + ColumHeight;
+                int y_end = margin + (ColumHeight * 2);
+                render.DrawText(rowStr[i]+"", textFormat, new RawRectangleF(x_start, y_start, x_end, y_end), textBrush, DrawTextOptions.None);
+            }
+
+            render.PopLayer();
+            */
+
             render.EndDraw();
         }
 
@@ -210,6 +235,27 @@ namespace Karnaugh_Logic
             }
 
             return values;
+        }
+
+        /// <summary>
+        /// 座標の回転・平行移動
+        /// </summary>
+        /// <param name="x">xの平行移動</param>
+        /// <param name="y">yの平行移動</param>
+        /// <param name="theta">回転角</param>
+        /// <returns>座標変換の行列</returns>
+        private RawMatrix3x2 TransrationMatrix(float x,float y, double theta)
+        {
+            //自分で書かないといけないのにキレそう
+            var matrix = new RawMatrix3x2();
+            matrix.M11 = (float)Math.Cos(theta);
+            matrix.M12 = (float)Math.Sin(theta);
+            matrix.M21 = (float)Math.Sin(theta)*(-1);
+            matrix.M22 = (float)Math.Cos(theta);
+            matrix.M31 = x;
+            matrix.M32 = y;
+
+            return matrix;
         }
   
     }
