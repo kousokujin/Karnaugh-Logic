@@ -102,6 +102,7 @@ namespace Karnaugh_Logic
         //2変数
         public void Value2Map()
         {
+            int valueCount = 2;
             render.BeginDraw();
 
             render.Clear(background);
@@ -122,13 +123,29 @@ namespace Karnaugh_Logic
             render.DrawLine(new RawVector2(margin + (RowWidth * 2), margin + ColumHeight), new RawVector2(width - margin, margin + ColumHeight), LineColor);
             render.DrawLine(new RawVector2(margin + RowWidth, margin + (ColumHeight * 2)), new RawVector2(margin + RowWidth, height - margin), LineColor);
 
-            int columCount = 4;
-            int rowCount = 4;
+            //行と列の数の設定
+            int columCount = 2;
+            int rowCount = 2;
+            for(int i = 3; i <= valueCount; i++)
+            {
+                if(i % 2 == 1)
+                {
+                    columCount = columCount + 2;
+                }
+                else
+                {
+                    rowCount = rowCount + 2;
+                }
+            }
 
+            //セルの大きさ
+            int valueWidth = ((width - margin) - (margin + (RowWidth * 2))) / columCount;
+            int valueHeight = ((height - margin) - (margin + (ColumHeight * 2))) / rowCount;
+            
             //縦の罫線
             for (int i = 1; i < columCount; i++)
             {
-                int valueWidth = ((width - margin) - (margin + (RowWidth * 2)))/columCount;
+                //int valueWidth = ((width - margin) - (margin + (RowWidth * 2)))/columCount;
                 int x = margin + (RowWidth * 2) + (valueWidth * i);
                 int y_start = margin + ColumHeight;
                 int y_end = height - margin;
@@ -139,7 +156,7 @@ namespace Karnaugh_Logic
             //横の罫線
             for (int i = 1; i < rowCount; i++)
             {
-                int valueHeight = ((height - margin) - (margin + (ColumHeight * 2)))/rowCount;
+                //int valueHeight = ((height - margin) - (margin + (ColumHeight * 2)))/rowCount;
                 int y = margin + (ColumHeight * 2) + (valueHeight * i);
                 int x_start = margin + RowWidth;
                 int x_end = width - margin;
@@ -147,7 +164,52 @@ namespace Karnaugh_Logic
                 render.DrawLine(new RawVector2(x_start, y), new RawVector2(x_end, y),LineColor);
             }
 
+            //文字の描画
+            var fontFactory = new SharpDX.DirectWrite.Factory();
+            var textFormat = new TextFormat(fontFactory, "メイリオ", 24.0f);
+            textFormat.TextAlignment = TextAlignment.Center;
+            var textBrush = new SharpDX.Direct2D1.SolidColorBrush(render, new RawColor4(1f, 1f, 1f, 1f));
+
+            //列のインデックス
+            string[] rowStr = valueStr(columCount / 2);
+            for (int i = 0; i < columCount; i++)
+            {
+                int x_shift = margin + (RowWidth * 2);
+                int x_start = x_shift + (valueWidth * i);
+                int x_end = x_shift + (valueWidth * (i + 1));
+
+                int y_start = margin + ColumHeight;
+                int y_end = margin + (ColumHeight * 2);
+                render.DrawText(rowStr[i], textFormat, new RawRectangleF(x_start, y_start, x_end,y_end), textBrush, DrawTextOptions.None);
+            }
             render.EndDraw();
+        }
+
+        /// <summary>
+        /// 変数数に応じてハミング距離が違う01列を返す。カルノー図の表で使う
+        /// </summary>
+        /// <param name="valueCount">変数の数</param>
+        /// <returns></returns>
+        private string[] valueStr(int valueCount)
+        {
+            string[] values;
+            switch (valueCount)
+            {
+                case 1:
+                    values = new string[] { "0", "1" };
+                    break;
+                case 2:
+                    values = new string[]{ "00", "01", "10", "11" };
+                    break;
+                case 3:
+                    values = new string[]{ "000", "001", "011", "010", "110", "111", "101", "100" };
+                    break;
+                default:
+                    values = new string[] { "0", "1" }; //とりあえず1ことおなじ
+                    break;
+            }
+
+            return values;
         }
   
     }
