@@ -64,6 +64,8 @@
   <ItemGroup>
     <Compile Include="enums.cs" />
     <Compile Include="Interfaces\FrontEndInterface.cs" />
+    <Compile Include="KarnoughMap.cs" />
+    <Compile Include="KarnoughComponent.cs" />
     <Compile Include="mainform.cs">
       <SubType>Form</SubType>
     </Compile>

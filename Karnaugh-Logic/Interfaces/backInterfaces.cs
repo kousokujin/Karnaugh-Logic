@@ -101,6 +101,12 @@ namespace Karnaugh_Logic.Interfaces
             get;
             set;
         }
+
+        /// <summary>
+        /// 簡略化後の式を文字列で出力
+        /// </summary>
+        /// <returns>簡略化後の論理式</returns>
+        string genLogiExpression();
     }
 
 
@@ -122,6 +128,15 @@ namespace Karnaugh_Logic.Interfaces
         /// <param name="z">z座標(2次元の時は0)</param>
         /// <returns>カルノー図の要素</returns>
         IKarnoughComponent getMapPoint(int x, int y, int z = 0);
+
+        /// <summary>
+        /// パラメータで指定した座標にカルノー図の値を設定
+        /// </summary>
+        /// <param name="x">x座標</param>
+        /// <param name="y">y座標</param>
+        /// <param name="z">z座標</param>
+        /// <param name="value"></param>
+        void setMapPoint(IKarnoughComponent value,int x, int y, int z = 0);
 
     }
 }
