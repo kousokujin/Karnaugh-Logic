@@ -106,7 +106,7 @@ namespace Karnaugh_Logic.Interfaces
         /// 簡略化後の式を文字列で出力
         /// </summary>
         /// <returns>簡略化後の論理式</returns>
-        string genLogiExpression();
+        string genLogicExpression();
     }
 
 
