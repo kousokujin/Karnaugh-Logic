@@ -7,7 +7,7 @@ using Karnaugh_Logic.Interfaces;
 
 namespace Karnaugh_Logic
 {
-    class KarnoughLogic : IKarnoughLogic
+    public class KarnoughLogic : IKarnoughLogic
     {
         /// <summary>
         /// 変数名

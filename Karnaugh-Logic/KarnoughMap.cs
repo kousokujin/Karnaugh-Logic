@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Karnaugh_Logic.Interfaces;
 
-namespace Karnaugh_Logic.Interfaces
+namespace Karnaugh_Logic
 {
-    class KarnoughMap : IKarnoughMap
+    public class KarnoughMap : IKarnoughMap
     {
         /// <summary>
         /// 変数名

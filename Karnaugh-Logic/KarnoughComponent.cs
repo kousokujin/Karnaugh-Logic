@@ -10,7 +10,7 @@ namespace Karnaugh_Logic
     /// <summary>
     /// カルノー図の要素クラス
     /// </summary>
-    class KarnoughComponent : IKarnoughComponent
+    public class KarnoughComponent : IKarnoughComponent
     {
         /// <summary>
         /// 設定されている値。初期値はNull
