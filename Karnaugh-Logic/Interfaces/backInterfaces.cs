@@ -59,7 +59,7 @@ namespace Karnaugh_Logic.Interfaces
         /// trueとなる論理値の組み合わせを追加
         /// </summary>
         /// <param name="">論理値組み合わせ(リストの要素数は変数の数と同じ)</param>
-        void addTrueList(List<bool>　trueList);
+        void addTrueList(List<bool> trueList);
 
         /// <summary>
         /// falseとなる論理値の組み合わせ
@@ -139,20 +139,20 @@ namespace Karnaugh_Logic.Interfaces
         void setMapPoint(IKarnoughComponent value,int x, int y, int z = 0);
 
     }
-}
 
-/// <summary>
-/// カルノー図の要素インターフェース
-/// </summary>
-interface IKarnoughComponent
-{
     /// <summary>
-    /// カルノー図の要素
+    /// カルノー図の要素インターフェース
     /// </summary>
-    TruthValue values { get; set; }
-    
-    /// <summary>
-    /// ブロック化後のブロック番号
-    /// </summary>
-    byte blockValue { get; set; }
+    interface IKarnoughComponent
+    {
+        /// <summary>
+        /// カルノー図の要素
+        /// </summary>
+        TruthValue values { get; set; }
+
+        /// <summary>
+        /// ブロック化後のブロック番号
+        /// </summary>
+        byte blockValue { get; set; }
+    }
 }
