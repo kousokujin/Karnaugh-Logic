@@ -24,10 +24,11 @@ namespace Karnaugh_Logic
         /// </summary>
         public byte blockValue { get; set; }
 
-        public KarnoughComponent()
+        public KarnoughComponent(byte blockValue = 0, TruthValue value = TruthValue.Null)
         {
-            blockValue = 0;
-            values = TruthValue.Null;
+            this.blockValue = blockValue;
+            this.values = value;
+
         }
 
     }

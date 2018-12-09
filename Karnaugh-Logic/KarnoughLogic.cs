@@ -19,6 +19,12 @@ namespace Karnaugh_Logic
         /// </summary>
         public List<List<TruthValue>> values { get; set; }
 
+        public KarnoughLogic()
+        {
+            valueNames = new List<string>();
+            values = new List<List<TruthValue>>();
+        }
+
         /// <summary>
         /// 論理式を文字列として出力
         /// </summary>

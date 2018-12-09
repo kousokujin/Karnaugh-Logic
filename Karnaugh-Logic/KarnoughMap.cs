@@ -28,12 +28,12 @@ namespace Karnaugh_Logic
 
         public KarnoughMap()
         {
-            List<IKarnoughComponent> x = new List<IKarnoughComponent>();
-            List<List<IKarnoughComponent>> y = new List<List<IKarnoughComponent>>();
+            //List<IKarnoughComponent> x = new List<IKarnoughComponent>();
+            //List<List<IKarnoughComponent>> y = new List<List<IKarnoughComponent>>();
 
             valueLists = new List<List<List<IKarnoughComponent>>>();
-            y.Add(x);
-            valueLists.Add(y);
+            //y.Add(x);
+            //valueLists.Add(y);
 
             x_max = 0;
             y_max = 0;
