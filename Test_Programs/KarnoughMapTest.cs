@@ -1,11 +1,13 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Karnaugh_Logic;
+using Karnaugh_Logic.Interfaces;
+using System.Collections.Generic;
 
 namespace Test_Programs
 {
     [TestClass]
-    public class UnitTest1
+    public class KarnoughMapTest
     {
         /// <summary>
         /// KarnoughMapのテストコード
