@@ -38,6 +38,9 @@ namespace Karnaugh_Logic
             x_max = 0;
             y_max = 0;
             z_max = 0;
+            addX();
+            addY();
+            addZ();
         }
 
         /// <summary>
@@ -70,7 +73,7 @@ namespace Karnaugh_Logic
         /// <param name="value">設定したい値</param>
         public void setMapPoint(IKarnoughComponent value,int x,int y,int z = 0)
         {   
-            if(z > z_max)
+            if(z > (z_max-1))
             {
                 int d = z - z_max;
                 
@@ -80,7 +83,7 @@ namespace Karnaugh_Logic
                 }
             }
 
-            if(y > y_max)
+            if(y > (y_max-1))
             {
                 int d = y - y_max;
                 for(int i = 0; i < y_max; y++)
@@ -89,7 +92,7 @@ namespace Karnaugh_Logic
                 }
             }
 
-            if(x > x_max)
+            if(x > (x_max-1))
             {
                 int d = x - x_max;
                 for(int i = 0; i < d; i++)
@@ -98,7 +101,9 @@ namespace Karnaugh_Logic
                 }
             }
 
-            valueLists[x][y][z] = value;
+            List<List<IKarnoughComponent>> comList = valueLists[z];
+            List<IKarnoughComponent> comList2 = comList[y];
+            comList2[x] = value;
         }
 
         //zの要素数追加
