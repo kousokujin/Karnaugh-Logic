@@ -41,6 +41,8 @@ namespace Karnaugh_Logic
             addX();
             addY();
             addZ();
+
+            this.dimension = 2;
         }
 
         /// <summary>
@@ -75,7 +77,7 @@ namespace Karnaugh_Logic
         {   
             if(z > (z_max-1))
             {
-                int d = z - z_max;
+                int d = z - (z_max-1);
                 
                 for(int i = 0; i < d; i++)
                 {
@@ -85,8 +87,8 @@ namespace Karnaugh_Logic
 
             if(y > (y_max-1))
             {
-                int d = y - y_max;
-                for(int i = 0; i < y_max; y++)
+                int d = y - (y_max-1);
+                for(int i = 0; i < d; i++)
                 {
                     addY();
                 }
@@ -94,7 +96,7 @@ namespace Karnaugh_Logic
 
             if(x > (x_max-1))
             {
-                int d = x - x_max;
+                int d = x - (x_max-1);
                 for(int i = 0; i < d; i++)
                 {
                     addX();
