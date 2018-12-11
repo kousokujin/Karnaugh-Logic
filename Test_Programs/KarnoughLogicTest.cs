@@ -39,7 +39,7 @@ namespace Test_Programs
 
             string outputStr = log.genLogicExpression();
             string truStr = "not(value1)*value3+value1+value1*value2";
-            Assert.AreEqual(outputStr, truStr);
+            Assert.AreEqual(truStr, outputStr);
         }
     }
 }

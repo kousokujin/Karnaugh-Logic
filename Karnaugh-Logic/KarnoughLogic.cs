@@ -32,24 +32,44 @@ namespace Karnaugh_Logic
         public string genLogicExpression()
         {
             string outputStr = "";
+            int n = 1;
 
             foreach (List<TruthValue> lstValue in values)
             {
-                int count = 0;
-                foreach(TruthValue v in lstValue)
+                int count = 1;
+                foreach (TruthValue v in lstValue)
                 {
+                    bool nullFlug = false;
                     switch (v)
                     {
                         case TruthValue.True:
-                            outputStr += (valueNames[count] + "*");
+                            outputStr += (valueNames[count-1]);
                             break;
                         case TruthValue.False:
-                            outputStr += (notExp(valueNames[count]) + "*");
+                            outputStr += (notExp(valueNames[count-1]));
                             break;
+                        case TruthValue.Null:
+                            nullFlug = true;
+                            break;
+                    }
+
+                    if (checkNullIndex(count, lstValue) == true)
+                    {
+                        break;
+                    }
+
+                    if (count < lstValue.Count() && nullFlug == false)
+                    {
+                        outputStr += "*";
                     }
                     count++;
                 }
-                outputStr += "+";
+
+                if(lstValue.Count() > n)
+                {
+                    outputStr += "+";
+                }
+                n++;
             }
 
             return outputStr;
@@ -58,6 +78,21 @@ namespace Karnaugh_Logic
         private string notExp(string str)
         {
             return string.Format("not({0})", str);
+        }
+
+        private bool checkNullIndex(int point,List<TruthValue> values)
+        {
+            bool output = true;
+            for(int i=point;i<values.Count(); i++)
+            {
+                if(values[i] != TruthValue.Null)
+                {
+                    output = false;
+                    break;
+                }
+            }
+
+            return output;
         }
     }
 }
