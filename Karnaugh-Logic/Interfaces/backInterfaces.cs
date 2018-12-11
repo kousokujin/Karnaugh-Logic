@@ -11,7 +11,7 @@ namespace Karnaugh_Logic.Interfaces
     /// <summary>
     /// 変数名を扱うインターフェイス
     /// </summary>
-    interface IValueName
+    public interface IValueName
     {
         List<string> valueNames
         {
@@ -24,7 +24,7 @@ namespace Karnaugh_Logic.Interfaces
     /// 真理値表のデータ形式のインターフェース
     /// List<bool>の変数の数は論理式の変数の数と同じ
     /// </summary>
-    interface ILogicTable : IValueName
+    public interface ILogicTable : IValueName
     {
         /// <summary>
         /// 論理式が1となる変数の組み合わせ
@@ -77,7 +77,7 @@ namespace Karnaugh_Logic.Interfaces
     /// <summary>
     /// 文字列で表された論理式から真理値表を作成
     /// </summary>
-    interface IToLogicTable : IValueName
+    public interface IToLogicTable : IValueName
     {
         /// <summary>
         /// 論理式から真理値表を作るメソッド
@@ -91,7 +91,7 @@ namespace Karnaugh_Logic.Interfaces
     /// カルノー図による簡略化後のデータのインターフェース
     /// 各変数の積
     /// </summary>
-    interface IKarnoughLogic : IValueName
+    public interface IKarnoughLogic : IValueName
     {
         /// <summary>
         /// List<byte>の変数の数は論理値の変数と同じ。
@@ -101,13 +101,19 @@ namespace Karnaugh_Logic.Interfaces
             get;
             set;
         }
+
+        /// <summary>
+        /// 簡略化後の式を文字列で出力
+        /// </summary>
+        /// <returns>簡略化後の論理式</returns>
+        string genLogicExpression();
     }
 
 
     /// <summary>
     /// カルノー図データのインターフェース
     /// </summary>
-    interface IKarnoughMap : IValueName
+    public interface IKarnoughMap : IValueName
     {
         /// <summary>
         /// カルノー図の次元(3次元が最大)
@@ -123,12 +129,21 @@ namespace Karnaugh_Logic.Interfaces
         /// <returns>カルノー図の要素</returns>
         IKarnoughComponent getMapPoint(int x, int y, int z = 0);
 
+        /// <summary>
+        /// パラメータで指定した座標にカルノー図の値を設定
+        /// </summary>
+        /// <param name="x">x座標</param>
+        /// <param name="y">y座標</param>
+        /// <param name="z">z座標</param>
+        /// <param name="value"></param>
+        void setMapPoint(IKarnoughComponent value,int x, int y, int z = 0);
+
     }
 
     /// <summary>
     /// カルノー図の要素インターフェース
     /// </summary>
-    interface IKarnoughComponent
+    public interface IKarnoughComponent
     {
         /// <summary>
         /// カルノー図の要素

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Karnaugh_Logic.Interfaces;
 
 namespace Karnaugh_Logic
 {
     /// <summary>
     /// 真理値表データ
     /// </summary>
-    class LogicTable : Interfaces.ILogicTable
+    public class LogicTable :ILogicTable
     {
         /// <summary>
         /// 変数名
