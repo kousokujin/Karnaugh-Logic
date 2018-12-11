@@ -9,7 +9,7 @@ namespace Karnaugh_Logic
     /// <summary>
     /// 真理値の列挙型
     /// </summary>
-    enum TruthValue
+    public enum TruthValue
     {
         True,
         False,
