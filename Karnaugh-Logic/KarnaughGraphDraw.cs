@@ -22,6 +22,7 @@ namespace Karnaugh_Logic
         //private Device device;
         private WindowRenderTarget render;
         private KarnaughGraphControl target;
+        private SharpDX.Direct2D1.Factory fact;
 
         //解像度
         private int width;
@@ -41,8 +42,8 @@ namespace Karnaugh_Logic
             hwnd.Hwnd = target.Handle;
             hwnd.PixelSize = new Size2(this.width, this.height);
 
-            var factory = new SharpDX.Direct2D1.Factory();
-            render = new SharpDX.Direct2D1.WindowRenderTarget(factory, new RenderTargetProperties(), hwnd);
+            this.fact = new SharpDX.Direct2D1.Factory();
+            render = new SharpDX.Direct2D1.WindowRenderTarget(this.fact, new RenderTargetProperties(), hwnd);
             this.target = target;
             
             //いろいろ設定
@@ -99,17 +100,17 @@ namespace Karnaugh_Logic
 
         //ここからカルノー図描画メソッド
 
-        //2変数
-        public void Value2Map()
+        public void Value2Map(IKarnoughMap map)
         {
-            int valueCount = 5;
+            //int valueCount = map.valueNames.Count();
+            int valueCount = 3;
             render.BeginDraw();
 
             render.Clear(background);
 
             int margin = 10;
             int ColumHeight = 30;
-            int RowWidth = 50;
+            int RowWidth = 100;
 
             //外枠
             render.DrawLine(new RawVector2(margin, margin), new RawVector2(margin, height - margin), LineColor);
@@ -126,9 +127,9 @@ namespace Karnaugh_Logic
             //行と列の数の設定
             int columCount = 2;
             int rowCount = 2;
-            for(int i = 3; i <= valueCount; i++)
+            for (int i = 3; i <= valueCount; i++)
             {
-                if(i % 2 == 1)
+                if (i % 2 == 1)
                 {
                     columCount = columCount + 2;
                 }
@@ -141,7 +142,7 @@ namespace Karnaugh_Logic
             //セルの大きさ
             int valueWidth = ((width - margin) - (margin + (RowWidth * 2))) / columCount;
             int valueHeight = ((height - margin) - (margin + (ColumHeight * 2))) / rowCount;
-            
+
             //縦の罫線
             for (int i = 1; i < columCount; i++)
             {
@@ -161,7 +162,7 @@ namespace Karnaugh_Logic
                 int x_start = margin + RowWidth;
                 int x_end = width - margin;
 
-                render.DrawLine(new RawVector2(x_start, y), new RawVector2(x_end, y),LineColor);
+                render.DrawLine(new RawVector2(x_start, y), new RawVector2(x_end, y), LineColor);
             }
 
             //文字の描画
@@ -180,32 +181,62 @@ namespace Karnaugh_Logic
 
                 int y_start = margin + ColumHeight;
                 int y_end = margin + (ColumHeight * 2);
-                render.DrawText(rowStr[i], textFormat, new RawRectangleF(x_start, y_start, x_end,y_end), textBrush, DrawTextOptions.None);
+                render.DrawText(rowStr[i], textFormat, new RawRectangleF(x_start, y_start, x_end, y_end), textBrush, DrawTextOptions.None);
             }
 
             //行のインデックス
 
             //レイヤー作成
-            /*
             var layer = new SharpDX.Direct2D1.Layer(render);
             var lp = new SharpDX.Direct2D1.LayerParameters();
             lp.ContentBounds = new RawRectangleF(0, 0, width, height);
-            lp.MaskTransform = TransrationMatrix(0, 0, 0 / Math.PI);
+            lp.GeometricMask = new RectangleGeometry(fact, new RawRectangleF(0, 0, width, height));
+            lp.MaskTransform = TransrationMatrix(0, 0, 0);
             render.PushLayer(ref lp, layer);
 
             for (int i = 0; i < rowCount; i++)
             {
-                int x_shift = margin + (RowWidth * 2)+ 10;
+                int x_shift = margin + (RowWidth * 2) + 10;
                 int x_start = x_shift + (valueWidth * i);
                 int x_end = x_shift + (valueWidth * (i + 1));
 
                 int y_start = margin + ColumHeight;
                 int y_end = margin + (ColumHeight * 2);
-                render.DrawText(rowStr[i]+"", textFormat, new RawRectangleF(x_start, y_start, x_end, y_end), textBrush, DrawTextOptions.None);
+                render.DrawText(rowStr[i], textFormat, new RawRectangleF(x_start, y_start, x_end, y_end), textBrush, DrawTextOptions.None);
             }
-
             render.PopLayer();
-            */
+
+            //mapを描画
+            for (int i = 0; i < rowCount; i++)
+            {
+                for(int j = 0; j < columCount; j++)
+                {
+                    int xStartCell = margin + (RowWidth * 2) + (valueWidth * j);
+                    int yStartCell = margin + (ColumHeight * 2) + (valueHeight * i) + (valueHeight/2 - 10);
+                    int xEndCell = xStartCell + valueWidth;
+                    int yEndCell = yStartCell + valueHeight;
+
+
+                    TruthValue v = map.getMapPoint(j, i).values;
+                    string s = "";
+                    switch (v)
+                    {
+                        case TruthValue.False:
+                            s = "0";
+                            break;
+                        case TruthValue.True:
+                            s = "1";
+                            break;
+                        case TruthValue.Null:
+                            s = "d";
+                            break;
+                    }
+
+                    var tmptextFormat = new TextFormat(fontFactory, "メイリオ", 30.0f);
+                    tmptextFormat.TextAlignment = TextAlignment.Center;
+                    render.DrawText(s, tmptextFormat, new RawRectangleF(xStartCell, yStartCell, xEndCell, yEndCell), textBrush, DrawTextOptions.None);
+                }
+            }
 
             render.EndDraw();
         }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Karnaugh_Logic.Interfaces;
 
 namespace Karnaugh_Logic
 {
@@ -43,7 +44,29 @@ namespace Karnaugh_Logic
 
         private void RunButton_Click(object sender, EventArgs e)
         {
-            karnaughCnt.testDraw();
+            IKarnoughMap map = new KarnoughMap();
+            //map.valueNames.Add("value1");
+            //map.valueNames.Add("value2");
+            //map.valueNames.Add("value3");
+
+            for(int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    IKarnoughComponent comp;
+                    if (j % 2 == 0)
+                    {
+                        comp = new KarnoughComponent(0, TruthValue.False);
+                    }
+                    else
+                    {
+                        comp = new KarnoughComponent(0, TruthValue.True);
+                    }
+
+                    map.setMapPoint(comp, j, i);
+                }
+            }
+            karnaughCnt.testDraw(map);
         }
     }
 }
