@@ -17,6 +17,8 @@ namespace Test_Programs
         {
             KarnoughComponent com = new KarnoughComponent(0,TruthValue.True);
             KarnoughMap map = new KarnoughMap();
+            map.valueNames.Add("value1");
+            map.valueNames.Add("value2");
             map.setMapPoint(com, 0, 0);
             map.setMapPoint(com, 1, 0);
             map.setMapPoint(com, 0, 1);

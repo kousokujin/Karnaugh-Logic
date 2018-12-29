@@ -34,6 +34,7 @@ namespace Karnaugh_Logic
             valueLists = new List<List<List<IKarnoughComponent>>>();
             //y.Add(x);
             //valueLists.Add(y);
+            valueNames = new List<string>();
 
             x_max = 0;
             y_max = 0;
