@@ -172,7 +172,7 @@ namespace Karnaugh_Logic
             var textBrush = new SharpDX.Direct2D1.SolidColorBrush(render, new RawColor4(1f, 1f, 1f, 1f));
 
             //列のインデックス
-            string[] rowStr = valueStr(columCount / 2);
+            string[] columStr = valueStr(columCount / 2);
             for (int i = 0; i < columCount; i++)
             {
                 int x_shift = margin + (RowWidth * 2);
@@ -181,30 +181,21 @@ namespace Karnaugh_Logic
 
                 int y_start = margin + ColumHeight;
                 int y_end = margin + (ColumHeight * 2);
-                render.DrawText(rowStr[i], textFormat, new RawRectangleF(x_start, y_start, x_end, y_end), textBrush, DrawTextOptions.None);
+                render.DrawText(columStr[i], textFormat, new RawRectangleF(x_start, y_start, x_end, y_end), textBrush, DrawTextOptions.None);
             }
 
             //行のインデックス
-
-            //レイヤー作成
-            var layer = new SharpDX.Direct2D1.Layer(render);
-            var lp = new SharpDX.Direct2D1.LayerParameters();
-            lp.ContentBounds = new RawRectangleF(0, 0, width, height);
-            lp.GeometricMask = new RectangleGeometry(fact, new RawRectangleF(0, 0, width, height));
-            lp.MaskTransform = TransrationMatrix(0, 0, 0);
-            render.PushLayer(ref lp, layer);
-
+            string[] rowStr = valueStr(rowCount / 2);
             for (int i = 0; i < rowCount; i++)
             {
-                int x_shift = margin + (RowWidth * 2) + 10;
-                int x_start = x_shift + (valueWidth * i);
-                int x_end = x_shift + (valueWidth * (i + 1));
+                int x_start = margin + RowWidth;
+                int x_end = x_start + RowWidth;
 
-                int y_start = margin + ColumHeight;
-                int y_end = margin + (ColumHeight * 2);
+                int y_shift = margin + (ColumHeight * 2);
+                int y_start = y_shift + (valueHeight * i) + (valueHeight/2-10);
+                int y_end = y_start + (valueHeight * (i + 1));
                 render.DrawText(rowStr[i], textFormat, new RawRectangleF(x_start, y_start, x_end, y_end), textBrush, DrawTextOptions.None);
             }
-            render.PopLayer();
 
             //mapを描画
             for (int i = 0; i < rowCount; i++)
@@ -255,7 +246,7 @@ namespace Karnaugh_Logic
                     values = new string[] { "0", "1" };
                     break;
                 case 2:
-                    values = new string[]{ "00", "01", "10", "11" };
+                    values = new string[]{ "00", "01", "11", "10" };
                     break;
                 case 3:
                     values = new string[]{ "000", "001", "011", "010", "110", "111", "101", "100" };
