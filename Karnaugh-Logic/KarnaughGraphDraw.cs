@@ -223,11 +223,26 @@ namespace Karnaugh_Logic
                             break;
                     }
 
-                    var tmptextFormat = new TextFormat(fontFactory, "メイリオ", 30.0f);
-                    tmptextFormat.TextAlignment = TextAlignment.Center;
-                    render.DrawText(s, tmptextFormat, new RawRectangleF(xStartCell, yStartCell, xEndCell, yEndCell), textBrush, DrawTextOptions.None);
+                    var MaptextFormat = new TextFormat(fontFactory, "メイリオ", 30.0f);
+                    var mapBrush = indexFontColor(map.getMapPoint(j, i).blockValue);
+                    MaptextFormat.TextAlignment = TextAlignment.Center;
+                    render.DrawText(s, MaptextFormat, new RawRectangleF(xStartCell, yStartCell, xEndCell, yEndCell), mapBrush, DrawTextOptions.None);
                 }
             }
+
+            //列の変数名
+            int x_label_Xstart = margin + (RowWidth * 2);
+            int x_label_Xend = width - margin;
+            int x_label_Ystart = margin;
+            int x_label_Yend = margin + ColumHeight;
+            render.DrawText(getlabel(map,columCount/2,true), textFormat, new RawRectangleF(x_label_Xstart, x_label_Ystart, x_label_Xend, x_label_Yend), textBrush, DrawTextOptions.None);
+
+            //行の変数名
+            int y_label_Xstart = margin;
+            int y_label_Xend = margin + RowWidth;
+            int y_label_Ystart = margin + (ColumHeight * 2) + ((valueHeight * rowCount) / 2) - (10 * rowCount /4);
+            int y_label_Yend = height - margin;
+            render.DrawText(getlabel(map, rowCount / 2, false), textFormat, new RawRectangleF(y_label_Xstart, y_label_Ystart, y_label_Xend, y_label_Yend), textBrush, DrawTextOptions.None);
 
             render.EndDraw();
         }
@@ -257,6 +272,60 @@ namespace Karnaugh_Logic
             }
 
             return values;
+        }
+
+        private string getlabel(IKarnoughMap com, int count,bool isXlabel)
+        {
+            string str = "";
+            
+            if (isXlabel)
+            {
+                for(int i = 0; i < count; i++)
+                {
+                    str += com.valueNames[i];
+                    if(i != (count - 1))
+                    {
+                        str += "/";
+                    }
+                }
+            }
+            else
+            {
+                int shift = com.valueNames.Count - count;
+                for (int i = 0; i < count; i++) {
+                    str += com.valueNames[shift + i];
+                    if(i != (count - 1))
+                    {
+                        str += "\n";
+                    }
+                }
+            }
+
+            return str;
+        }
+
+        private SolidColorBrush indexFontColor(int index)
+        {
+            switch (index)
+            {
+                case 0:
+                    return new SharpDX.Direct2D1.SolidColorBrush(render, new RawColor4(1f, 1f, 1f, 1f));
+                case 1:
+                    return new SharpDX.Direct2D1.SolidColorBrush(render, new RawColor4((252f / 255f), (139f / 255f), (108f / 255f), 1f));
+                case 2:
+                    return new SharpDX.Direct2D1.SolidColorBrush(render, new RawColor4((142f / 255f), (252f / 255f), (108f / 255f), 1f));
+                case 3:
+                    return new SharpDX.Direct2D1.SolidColorBrush(render, new RawColor4((108f / 255f), (252f / 255f), (252f / 255f), 1f));
+                case 4:
+                    return new SharpDX.Direct2D1.SolidColorBrush(render, new RawColor4((112f / 255f), (168f / 255f), (216f / 255f), 1f));
+                case 5:
+                    return new SharpDX.Direct2D1.SolidColorBrush(render, new RawColor4((125f / 255f), (121f / 255f), (209f / 255f), 1f));
+                case 6:
+                    return new SharpDX.Direct2D1.SolidColorBrush(render, new RawColor4((199f / 255f), (150f / 255f), (206f / 255f), 1f));
+                default:
+                    return new SharpDX.Direct2D1.SolidColorBrush(render, new RawColor4(1f, 1f, 1f, 1f));
+
+            }
         }
 
         /// <summary>
