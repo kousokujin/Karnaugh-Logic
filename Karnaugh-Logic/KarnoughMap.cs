@@ -26,6 +26,8 @@ namespace Karnaugh_Logic
         int y_max;
         int z_max;
 
+        protected TruthValue default_value;
+
         public KarnoughMap()
         {
             //List<IKarnoughComponent> x = new List<IKarnoughComponent>();
@@ -43,6 +45,7 @@ namespace Karnaugh_Logic
             addY();
             addZ();
 
+            default_value = TruthValue.Null;
             this.dimension = 2;
         }
 
@@ -57,7 +60,7 @@ namespace Karnaugh_Logic
         {
             if(z_max < z || y_max < y || x_max < x)
             {
-                return new KarnoughComponent();
+                return new KarnoughComponent(0,default_value);
             }
 
             List<List<IKarnoughComponent>> y_list = valueLists[z];
