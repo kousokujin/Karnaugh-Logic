@@ -138,6 +138,13 @@ namespace Karnaugh_Logic.Interfaces
         /// <param name="value"></param>
         void setMapPoint(IKarnoughComponent value,int x, int y, int z = 0);
 
+        /// <summary>
+        /// ブロックIDのIKarnoughComponentを取得する
+        /// </summary>
+        /// <param name="blockId">ブロックID</param>
+        /// <returns>そのBlockIDを持つIKarnoughComopnent</returns>
+        List<IKarnoughComponent> getBlockIDList(int blockId);
+
     }
 
     /// <summary>

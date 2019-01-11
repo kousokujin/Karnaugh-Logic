@@ -110,6 +110,25 @@ namespace Karnaugh_Logic
 
             return outputStr;
         }
+
+        //未完成
+        public IKarnoughLogic getExp(IKarnoughMap map)
+        {
+            //とりあえずBlockIDが10まで
+            for(int i = 1; i < 10; i++)
+            {
+                List<IKarnoughComponent> com = map.getBlockIDList(i);
+                if(com.Count == 0)
+                {
+                    break;
+                }
+
+                
+
+            }
+
+            return new KarnoughLogic();
+        }
     }
 
     class JsonKarnoughMap : KarnoughMap

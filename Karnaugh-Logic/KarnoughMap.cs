@@ -159,5 +159,29 @@ namespace Karnaugh_Logic
             x_max++;
         }
 
+        /// <summary>
+        /// ブロックIDのIKarnoughComponentを取得する
+        /// </summary>
+        /// <param name="blockId">ブロックID</param>
+        /// <returns>そのBlockIDを持つIKarnoughComopnent</returns>
+        public List<IKarnoughComponent> getBlockIDList(int blockId)
+        {
+            List<IKarnoughComponent> comlist = new List<IKarnoughComponent>();
+
+            foreach(List<List<IKarnoughComponent>> Xlst in this.valueLists)
+            {
+                foreach(List<IKarnoughComponent> Ylst in Xlst)
+                {
+                    var lst = Ylst.Where(x => x.blockValue == blockId);
+                    foreach(var i in lst)
+                    {
+                        comlist.Add(i);
+                    }
+                }
+            }
+
+            return comlist;
+        }
+
     }
 }
