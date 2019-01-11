@@ -90,8 +90,7 @@ namespace Karnaugh_Logic
             ProcessStartInfo psi = new ProcessStartInfo(python_env);
             psi.UseShellExecute = false;
             psi.RedirectStandardOutput = true;
-            string fullpath = Path.GetFullPath(script);
-            string arg = fullpath;
+            string arg = script;
 
             foreach(string s in args)
             {
@@ -105,7 +104,7 @@ namespace Karnaugh_Logic
             pro.Start();
 
             StreamReader sr = pro.StandardOutput;
-            string outputStr = sr.ReadLine();
+            string outputStr = sr.ReadToEnd();
             pro.WaitForExit();
             pro.Close();
 
