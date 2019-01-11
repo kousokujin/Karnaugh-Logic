@@ -13,7 +13,7 @@ namespace Test_Programs
         public void jsontest()
         {
             //KarnoughEngine en = new KarnoughEngine();
-            string jsonpath = @"TestJson.json";
+            string jsonpath = @"../../../TestJson.json";
             string json;
 
             using (FileStream fs = File.OpenRead(jsonpath))
@@ -24,6 +24,26 @@ namespace Test_Programs
             }
 
             IKarnoughMap map = KarnoughEngine.deserializer(json);
+
+            maptest(map);
+        }
+
+        [TestMethod]
+        public void expTest()
+        {
+            //適当に変える
+            string python = @"C:\Users\kousokujin\AppData\Local\conda\conda\envs\DeepLearning\python.exe";
+            KarnoughEngine en = new KarnoughEngine();
+            en.script = @"..\..\..\Karnaugh-Logic\pycode\jsontest.py";
+            en.python_env = python;
+            IKarnoughMap map = en.solve("x+a");
+
+            maptest(map);
+
+        }
+
+        private void maptest(IKarnoughMap map)
+        {
 
             Assert.AreEqual("value1", map.valueNames[0]);
             Assert.AreEqual("value2", map.valueNames[1]);

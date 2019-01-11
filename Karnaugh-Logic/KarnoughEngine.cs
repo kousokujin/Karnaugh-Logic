@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Diagnostics;
 using Karnaugh_Logic.Interfaces;
 using Newtonsoft.Json;
 
@@ -10,6 +12,14 @@ namespace Karnaugh_Logic
 {
     public class KarnoughEngine
     {
+        public string python_env;
+        public string script;
+
+        public KarnoughEngine()
+        {
+            script = "test.py";
+        }
+
         public static IKarnoughMap deserializer(string json)
         {
             JsonKarnoughMap map = JsonConvert.DeserializeObject<JsonKarnoughMap>(json);
@@ -40,6 +50,67 @@ namespace Karnaugh_Logic
 
             return map;
         }
+
+        /// <summary>
+        /// 論理式からIkarnoughMapを作成
+        /// </summary>
+        /// <param name="logicExp">論理式</param>
+        /// <returns>map</returns>
+        public IKarnoughMap solve(string logicExp)
+        {
+            string json = SolveMap(logicExp);
+            IKarnoughMap map = deserializer(json);
+
+            return map;
+        }
+
+        /// <summary>
+        /// 論理式を入力してJSONのMAPを出力
+        /// </summary>
+        /// <param name="logicExp">論理式</param>
+        /// <returns>JSONのマップ</returns>
+        private string SolveMap(string logicExp)
+        {
+            List<string> args = new List<string>();
+            args.Add(logicExp);
+
+            string json = runPython(script, args);
+
+            return json;
+        }
+
+        /// <summary>
+        /// 指定されたPythonスクリプトを実行。python_envで仮想環境を指定
+        /// </summary>
+        /// <param name="script">スクリプト</param>
+        /// <param name="args">スクリプト引数</param>
+        /// <returns>実行結果(標準出力)</returns>
+        private string runPython(string script,List<string> args)
+        {
+            ProcessStartInfo psi = new ProcessStartInfo(python_env);
+            psi.UseShellExecute = false;
+            psi.RedirectStandardOutput = true;
+            string fullpath = Path.GetFullPath(script);
+            string arg = fullpath;
+
+            foreach(string s in args)
+            {
+                arg += (" " + s);
+            }
+            arg.TrimEnd();
+            psi.Arguments = arg;
+
+            Process pro = new Process();
+            pro.StartInfo = psi;
+            pro.Start();
+
+            StreamReader sr = pro.StandardOutput;
+            string outputStr = sr.ReadLine();
+            pro.WaitForExit();
+            pro.Close();
+
+            return outputStr;
+        }
     }
 
     class JsonKarnoughMap : KarnoughMap
@@ -68,6 +139,8 @@ namespace Karnaugh_Logic
                 return dimension;   
             }
         }
+        
+        //継承元のmapにも適用させたくね？
         public List<JsonKarnoughComponent> map;
 
         public JsonKarnoughMap()

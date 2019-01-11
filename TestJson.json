@@ -1,0 +1,36 @@
+{
+    "values":["value1","value2","value3"],
+    "dim": 2,
+    
+    "map": [
+        {
+            "x":0,
+            "y":0,
+            "z":0,
+            "value":true,
+            "block_id":1
+        },
+        {
+            "x":1,
+            "y":0,
+            "z":0,
+            "value":true,
+            "block_id":1
+        },
+        {
+            "x":0,
+            "y":1,
+            "z":0,
+            "value":true,
+            "block_id":1
+        },
+        {
+            "x":1,
+            "y":1,
+            "z":0,
+            "value":true,
+            "block_id":1
+        }
+    ]
+
+}
