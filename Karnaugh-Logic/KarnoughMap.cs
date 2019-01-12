@@ -58,7 +58,7 @@ namespace Karnaugh_Logic
         /// <returns>カルノー図の要素</returns>
         public IKarnoughComponent getMapPoint(int x,int y,int z = 0)
         {
-            if(z_max < z || y_max < y || x_max < x)
+            if(z_max <= z || y_max <= y || x_max <= x)
             {
                 return new KarnoughComponent(0,default_value);
             }
@@ -164,24 +164,56 @@ namespace Karnaugh_Logic
         /// </summary>
         /// <param name="blockId">ブロックID</param>
         /// <returns>そのBlockIDを持つIKarnoughComopnent</returns>
-        public List<IKarnoughComponent> getBlockIDList(int blockId)
+        public List<IAxisKarnoughComponent> getBlockIDList(byte blockId)
         {
-            List<IKarnoughComponent> comlist = new List<IKarnoughComponent>();
+            List<IAxisKarnoughComponent> comlist = new List<IAxisKarnoughComponent>();
 
-            foreach(List<List<IKarnoughComponent>> Xlst in this.valueLists)
+            int x = 0;
+            int y = 0;
+            int z = 0;
+            foreach(List<List<IKarnoughComponent>> Zlst in this.valueLists)
             {
-                foreach(List<IKarnoughComponent> Ylst in Xlst)
+                x = 0;
+                y = 0;
+                foreach(List<IKarnoughComponent> Ylst in Zlst)
                 {
-                    var lst = Ylst.Where(x => x.blockValue == blockId);
-                    foreach(var i in lst)
+                    x = 0;
+                    //var lst = Ylst.Where(x => x.blockValue == blockId);
+                    foreach(IKarnoughComponent Xlst in Ylst)
                     {
-                        comlist.Add(i);
+                        if(Xlst.blockValue == blockId)
+                        {
+                            AxisKarnoughComponent tmp = new AxisKarnoughComponent(Xlst, x, y, z);
+                            comlist.Add(tmp);
+                        }
+                        x++;
                     }
+                    y++;
                 }
+                z++;
             }
 
             return comlist;
         }
 
+    }
+
+    /// <summary>
+    /// 座標情報が追加されたKarnoughComponent
+    /// </summary>
+    public class AxisKarnoughComponent : KarnoughComponent,IAxisKarnoughComponent
+    {
+        public int x { get; set; }
+        public int y { get; set; }
+        public int z { get; set; }
+
+        public AxisKarnoughComponent(IKarnoughComponent com, int x, int y, int z = 0)
+        {
+            values = com.values;
+            blockValue = com.blockValue;
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
     }
 }

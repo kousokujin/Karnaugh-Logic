@@ -9,6 +9,8 @@ namespace Test_Programs
     [TestClass]
     public class KarnoughEngineTest
     {
+        //適当に変える
+        string python = @"C:\Users\kousokujin\AppData\Local\conda\conda\envs\DeepLearning\python.exe";
         [TestMethod]
         public void jsontest()
         {
@@ -31,8 +33,6 @@ namespace Test_Programs
         [TestMethod]
         public void expTest()
         {
-            //適当に変える
-            string python = @"C:\Users\kousokujin\AppData\Local\conda\conda\envs\DeepLearning\python.exe";
             KarnoughEngine en = new KarnoughEngine();
             en.script = @"..\..\..\Karnaugh-Logic\pycode\jsontest.py";
             en.python_env = python;
@@ -40,6 +40,18 @@ namespace Test_Programs
 
             maptest(map);
 
+        }
+
+        [TestMethod]
+        public void generateTest()
+        {
+            KarnoughEngine en = new KarnoughEngine();
+            en.script = @"..\..\..\Karnaugh-Logic\pycode\jsontest.py";
+            en.python_env = python;
+            IKarnoughMap map = en.solve("x+a");
+            string exp = en.getExpress(map);
+
+            Assert.AreEqual("not(value1)", exp);
         }
 
         private void maptest(IKarnoughMap map)
@@ -53,6 +65,10 @@ namespace Test_Programs
             Assert.AreEqual(TruthValue.True, map.getMapPoint(1, 0).values);
             Assert.AreEqual(TruthValue.True, map.getMapPoint(0, 1).values);
             Assert.AreEqual(TruthValue.True, map.getMapPoint(1, 1).values);
+            Assert.AreEqual(TruthValue.False, map.getMapPoint(2, 0).values);
+            Assert.AreEqual(TruthValue.False, map.getMapPoint(3, 0).values);
+            Assert.AreEqual(TruthValue.False, map.getMapPoint(2, 1).values);
+            Assert.AreEqual(TruthValue.False, map.getMapPoint(3, 1).values);
 
             Assert.AreEqual((byte)1, map.getMapPoint(0, 0).blockValue);
             Assert.AreEqual((byte)1, map.getMapPoint(1, 0).blockValue);

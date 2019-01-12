@@ -65,6 +65,17 @@ namespace Karnaugh_Logic
         }
 
         /// <summary>
+        /// カルノー図から論理式を生成
+        /// </summary>
+        /// <param name="map">カルノー図</param>
+        /// <returns>論理式</returns>
+        public string getExpress(IKarnoughMap map)
+        {
+            IKarnoughLogic logi = getExp(map);
+            return logi.genLogicExpression();
+        }
+
+        /// <summary>
         /// 論理式を入力してJSONのMAPを出力
         /// </summary>
         /// <param name="logicExp">論理式</param>
@@ -111,23 +122,177 @@ namespace Karnaugh_Logic
             return outputStr;
         }
 
-        //未完成
         public IKarnoughLogic getExp(IKarnoughMap map)
         {
+            IKarnoughLogic outputVal = new KarnoughLogic();
+            outputVal.valueNames = map.valueNames;
+
+            List<List<bool>> valuelists = new List<List<bool>>();
+
+
             //とりあえずBlockIDが10まで
-            for(int i = 1; i < 10; i++)
+            for(byte i = 1; i < 10; i++)
             {
-                List<IKarnoughComponent> com = map.getBlockIDList(i);
-                if(com.Count == 0)
+                List<IAxisKarnoughComponent> com = map.getBlockIDList(i);
+                List<TruthValue> truthval = new List<TruthValue>(); ;
+                if (com.Count == 0)
                 {
                     break;
                 }
 
+                foreach(IAxisKarnoughComponent c in com)
+                {
+                    List<bool> booleanLST = axisX(map.valueNames.Count(), c.x);
+                    booleanLST.AddRange(axisY(map.valueNames.Count(), c.y));
+                    valuelists.Add(booleanLST);
+                }
                 
+                for(int j = 0; j < map.valueNames.Count(); j++)
+                {
+                    List<bool> Xlist = new List<bool>();
+                    foreach(List<bool> lst in valuelists)
+                    {
+                        Xlist.Add(lst[j]);
+                    }
 
+                    bool prevLogic = Xlist[0];
+                    TruthValue result;
+                    if(prevLogic == true)
+                    {
+                        result = TruthValue.True;
+                    }
+                    else
+                    {
+                        result = TruthValue.False;
+                    }
+                    foreach(bool b in Xlist)
+                    {
+                        if(prevLogic != b)
+                        {
+                            result = TruthValue.Null;
+                            break;
+                        }
+                    }
+                    truthval.Add(result);
+                }
+                outputVal.values.Add(truthval);
             }
 
-            return new KarnoughLogic();
+            return outputVal;
+        }
+
+        private List<bool> axisX(int valueCount,int point)
+        {
+            switch (valueCount)
+            {
+                case 2:
+                    switch (point)
+                    {
+                        case 0:
+                            return new List<bool> { false };
+                        case 1:
+                            return new List<bool> { true };
+                        default:
+                            return new List<bool>();
+                    }
+                case 3:
+                case 4:
+                    switch (point)
+                    {
+                        case 0:
+                            return new List<bool> { false, false };
+                        case 1:
+                            return new List<bool> { false, true };
+                        case 2:
+                            return new List<bool> { true, true };
+                        case 3:
+                            return new List<bool> { true, false };
+                        default:
+                            return new List<bool>();
+                    }
+                case 5:
+                case 6:
+                    switch (point)
+                    {
+                        case 0:
+                            return new List<bool> { false, false, false };
+                        case 1:
+                            return new List<bool> { false, false, true };
+                        case 2:
+                            return new List<bool> { false, true, true };
+                        case 3:
+                            return new List<bool> { false, true, false };
+                        case 4:
+                            return new List<bool> { true, true, false };
+                        case 5:
+                            return new List<bool> { true, true, true };
+                        case 6:
+                            return new List<bool> { true, false, true };
+                        case 7:
+                            return new List<bool> { true, false, false };
+                        default:
+                            return new List<bool>();
+                    }
+                default:
+                    return new List<bool>();
+            }
+        }
+
+        private List<bool> axisY(int valueCount,int point)
+        {
+            switch (valueCount)
+            {
+                case 2:
+                case 3:
+                    switch (point)
+                    {
+                        case 0:
+                            return new List<bool> { false };
+                        case 1:
+                            return new List<bool> { true };
+                        default:
+                            return new List<bool>();
+                    }
+                case 4:
+                case 5:
+                    switch (point)
+                    {
+                        case 0:
+                            return new List<bool> { false, false };
+                        case 1:
+                            return new List<bool> { false, true };
+                        case 2:
+                            return new List<bool> { true, true };
+                        case 3:
+                            return new List<bool> { true, false };
+                        default:
+                            return new List<bool>();
+                    }
+                case 6:
+                    switch (point)
+                    {
+                        case 0:
+                            return new List<bool> { false, false, false };
+                        case 1:
+                            return new List<bool> { false, false, true };
+                        case 2:
+                            return new List<bool> { false, true, true };
+                        case 3:
+                            return new List<bool> { false, true, false };
+                        case 4:
+                            return new List<bool> { true, true, false };
+                        case 5:
+                            return new List<bool> { true, true, true };
+                        case 6:
+                            return new List<bool> { true, false, true };
+                        case 7:
+                            return new List<bool> { true, false, false };
+                        default:
+                            return new List<bool>();
+                    }
+                default:
+                    return new List<bool>();
+            }
         }
     }
 

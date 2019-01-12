@@ -65,7 +65,7 @@ namespace Karnaugh_Logic
                     count++;
                 }
 
-                if(lstValue.Count() > n)
+                if(values.Count() > n)
                 {
                     outputStr += "+";
                 }
