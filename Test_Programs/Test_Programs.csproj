@@ -52,6 +52,7 @@
     <Compile Include="KarnoughMapTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="KarnoughLogicTest.cs" />
+    <Compile Include="KarnoughEngineTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -136,7 +136,14 @@ namespace Karnaugh_Logic.Interfaces
         /// <param name="y">y座標</param>
         /// <param name="z">z座標</param>
         /// <param name="value"></param>
-        void setMapPoint(IKarnoughComponent value,int x, int y, int z = 0);
+        void setMapPoint(IKarnoughComponent value, int x, int y, int z = 0);
+
+        /// <summary>
+        /// ブロックIDのIKarnoughComponentを取得する
+        /// </summary>
+        /// <param name="blockId">ブロックID</param>
+        /// <returns>そのBlockIDを持つIKarnoughComopnent</returns>
+        List<IAxisKarnoughComponent> getBlockIDList(byte blockId);
 
     }
 
@@ -154,5 +161,15 @@ namespace Karnaugh_Logic.Interfaces
         /// ブロック化後のブロック番号
         /// </summary>
         byte blockValue { get; set; }
+    }
+
+    /// <summary>
+    /// 座標情報つきのカルノー図要素インターフェース
+    /// </summary>
+    public interface IAxisKarnoughComponent : IKarnoughComponent
+    {
+        int x { get; set; }
+        int y { get; set; }
+        int z { get; set; }
     }
 }
