@@ -45,6 +45,7 @@ namespace Karnaugh_Logic
         private void RunButton_Click(object sender, EventArgs e)
         {
             IKarnoughMap map = new KarnoughMap();
+            /*
             map.valueNames.Add("value1");
             map.valueNames.Add("value2");
             map.valueNames.Add("value3");
@@ -73,6 +74,7 @@ namespace Karnaugh_Logic
                     map.setMapPoint(comp, j, i);
                 }
             }
+            */
             karnaughCnt.testDraw(map);
         }
     }
