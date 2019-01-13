@@ -33,7 +33,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.afterExpBox = new System.Windows.Forms.TextBox();
             this.RunButton = new System.Windows.Forms.Button();
             this.LogicTexBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -77,7 +77,7 @@
             // mainSplitContainer.Panel1
             // 
             this.mainSplitContainer.Panel1.Controls.Add(this.label2);
-            this.mainSplitContainer.Panel1.Controls.Add(this.textBox1);
+            this.mainSplitContainer.Panel1.Controls.Add(this.afterExpBox);
             this.mainSplitContainer.Panel1.Controls.Add(this.RunButton);
             this.mainSplitContainer.Panel1.Controls.Add(this.LogicTexBox);
             this.mainSplitContainer.Panel1.Controls.Add(this.label1);
@@ -94,13 +94,13 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "簡略化後式";
             // 
-            // textBox1
+            // afterExpBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 172);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(251, 43);
-            this.textBox1.TabIndex = 3;
+            this.afterExpBox.Location = new System.Drawing.Point(12, 172);
+            this.afterExpBox.Multiline = true;
+            this.afterExpBox.Name = "afterExpBox";
+            this.afterExpBox.Size = new System.Drawing.Size(251, 43);
+            this.afterExpBox.TabIndex = 3;
             // 
             // RunButton
             // 
@@ -159,7 +159,7 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.SplitContainer mainSplitContainer;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox afterExpBox;
         private System.Windows.Forms.Button RunButton;
         private System.Windows.Forms.TextBox LogicTexBox;
         private System.Windows.Forms.Label label1;

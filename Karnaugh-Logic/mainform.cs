@@ -44,38 +44,24 @@ namespace Karnaugh_Logic
 
         private void RunButton_Click(object sender, EventArgs e)
         {
-            IKarnoughMap map = new KarnoughMap();
-            /*
-            map.valueNames.Add("value1");
-            map.valueNames.Add("value2");
-            map.valueNames.Add("value3");
-
-            for(int i = 0; i < 2; i++)
-            {
-                for (int j = 0; j < 4; j++)
-                {
-                    IKarnoughComponent comp;
-                    if (j % 2 == 0)
-                    {
-                        comp = new KarnoughComponent(0, TruthValue.False);
-                    }
-                    else
-                    {
-                        if (i % 2 == 0)
-                        {
-                            comp = new KarnoughComponent(1, TruthValue.True);
-                        }
-                        else
-                        {
-                            comp = new KarnoughComponent(2, TruthValue.True);
-                        }
-                    }
-
-                    map.setMapPoint(comp, j, i);
-                }
-            }
-            */
+            KarnoughEngine eng = new KarnoughEngine();
+            eng.python_env = @"C:\Users\kousokujin\AppData\Local\conda\conda\envs\DeepLearning\python.exe";
+            eng.script = "jsontest.py";
+            IKarnoughMap map = genMap(eng, LogicTexBox.Text);
+            string exp = genExp(eng, map);
+            afterExpBox.Text = exp;
             karnaughCnt.testDraw(map);
+        }
+
+        private IKarnoughMap genMap(KarnoughEngine eng,string exp)
+        {
+            return eng.solve(exp);
+        }
+
+        private string genExp(KarnoughEngine eng,IKarnoughMap map)
+        {
+            IKarnoughLogic log = eng.getExp(map);
+            return log.genLogicExpression();
         }
     }
 }
