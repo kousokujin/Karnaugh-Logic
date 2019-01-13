@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 using Karnaugh_Logic.Interfaces;
 
@@ -44,8 +45,14 @@ namespace Karnaugh_Logic
 
         private void RunButton_Click(object sender, EventArgs e)
         {
+            if(File.Exists(PythonPathBox.Text) == false)
+            {
+                MessageBox.Show("指定したPython実行環境が存在しません。","Pythonエラー");
+                return;
+            }
+
             KarnoughEngine eng = new KarnoughEngine();
-            eng.python_env = @"C:\Users\kousokujin\AppData\Local\conda\conda\envs\DeepLearning\python.exe";
+            eng.python_env = PythonPathBox.Text;
             eng.script = "jsontest.py";
             IKarnoughMap map = genMap(eng, LogicTexBox.Text);
             string exp = genExp(eng, map);
@@ -62,6 +69,14 @@ namespace Karnaugh_Logic
         {
             IKarnoughLogic log = eng.getExp(map);
             return log.genLogicExpression();
+        }
+
+        private void PythonPathButton_Click(object sender, EventArgs e)
+        {
+            if(PythonFileBrowser.ShowDialog() == DialogResult.OK)
+            {
+                PythonPathBox.Text = PythonFileBrowser.FileName;
+            }
         }
     }
 }

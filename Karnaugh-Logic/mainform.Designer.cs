@@ -37,6 +37,10 @@
             this.RunButton = new System.Windows.Forms.Button();
             this.LogicTexBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.PythonPathButton = new System.Windows.Forms.Button();
+            this.PythonPathBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.PythonFileBrowser = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.Panel1.SuspendLayout();
@@ -76,6 +80,9 @@
             // 
             // mainSplitContainer.Panel1
             // 
+            this.mainSplitContainer.Panel1.Controls.Add(this.label3);
+            this.mainSplitContainer.Panel1.Controls.Add(this.PythonPathBox);
+            this.mainSplitContainer.Panel1.Controls.Add(this.PythonPathButton);
             this.mainSplitContainer.Panel1.Controls.Add(this.label2);
             this.mainSplitContainer.Panel1.Controls.Add(this.afterExpBox);
             this.mainSplitContainer.Panel1.Controls.Add(this.RunButton);
@@ -88,7 +95,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 157);
+            this.label2.Location = new System.Drawing.Point(10, 139);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 12);
             this.label2.TabIndex = 4;
@@ -96,7 +103,7 @@
             // 
             // afterExpBox
             // 
-            this.afterExpBox.Location = new System.Drawing.Point(12, 172);
+            this.afterExpBox.Location = new System.Drawing.Point(12, 154);
             this.afterExpBox.Multiline = true;
             this.afterExpBox.Name = "afterExpBox";
             this.afterExpBox.Size = new System.Drawing.Size(251, 43);
@@ -104,7 +111,7 @@
             // 
             // RunButton
             // 
-            this.RunButton.Location = new System.Drawing.Point(12, 77);
+            this.RunButton.Location = new System.Drawing.Point(12, 73);
             this.RunButton.Name = "RunButton";
             this.RunButton.Size = new System.Drawing.Size(251, 39);
             this.RunButton.TabIndex = 2;
@@ -114,7 +121,7 @@
             // 
             // LogicTexBox
             // 
-            this.LogicTexBox.Location = new System.Drawing.Point(12, 19);
+            this.LogicTexBox.Location = new System.Drawing.Point(12, 15);
             this.LogicTexBox.Multiline = true;
             this.LogicTexBox.Name = "LogicTexBox";
             this.LogicTexBox.Size = new System.Drawing.Size(251, 52);
@@ -123,11 +130,41 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 4);
+            this.label1.Location = new System.Drawing.Point(12, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 12);
             this.label1.TabIndex = 0;
             this.label1.Text = "論理式";
+            // 
+            // PythonPathButton
+            // 
+            this.PythonPathButton.Location = new System.Drawing.Point(188, 262);
+            this.PythonPathButton.Name = "PythonPathButton";
+            this.PythonPathButton.Size = new System.Drawing.Size(75, 23);
+            this.PythonPathButton.TabIndex = 5;
+            this.PythonPathButton.Text = "参照";
+            this.PythonPathButton.UseVisualStyleBackColor = true;
+            this.PythonPathButton.Click += new System.EventHandler(this.PythonPathButton_Click);
+            // 
+            // PythonPathBox
+            // 
+            this.PythonPathBox.Location = new System.Drawing.Point(12, 237);
+            this.PythonPathBox.Name = "PythonPathBox";
+            this.PythonPathBox.Size = new System.Drawing.Size(251, 19);
+            this.PythonPathBox.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(14, 219);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(88, 12);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Python実行環境";
+            // 
+            // PythonFileBrowser
+            // 
+            this.PythonFileBrowser.FileName = "openFileDialog1";
             // 
             // mainWindow
             // 
@@ -163,6 +200,10 @@
         private System.Windows.Forms.Button RunButton;
         private System.Windows.Forms.TextBox LogicTexBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox PythonPathBox;
+        private System.Windows.Forms.Button PythonPathButton;
+        private System.Windows.Forms.OpenFileDialog PythonFileBrowser;
     }
 }
 
