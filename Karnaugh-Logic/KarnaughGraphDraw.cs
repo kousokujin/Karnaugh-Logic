@@ -102,8 +102,8 @@ namespace Karnaugh_Logic
 
         public void Value2Map(IKarnoughMap map)
         {
-            //int valueCount = map.valueNames.Count();
-            int valueCount = 3;
+            int valueCount = map.valueNames.Count();
+            //int valueCount = 3;
             render.BeginDraw();
 
             render.Clear(background);
