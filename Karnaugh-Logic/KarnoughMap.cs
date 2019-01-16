@@ -121,7 +121,7 @@ namespace Karnaugh_Logic
                 List<IKarnoughComponent> x = new List<IKarnoughComponent>();
                 for (int j = 0; j < x_max; j++)
                 {
-                    x.Add(new KarnoughComponent());
+                    x.Add(new KarnoughComponent(0,default_value));
                 }
                 y.Add(x);
             }
@@ -138,7 +138,7 @@ namespace Karnaugh_Logic
                 List<IKarnoughComponent> x = new List<IKarnoughComponent>();
                 for(int j = 0; j < x_max; j++)
                 {
-                    x.Add(new KarnoughComponent());
+                    x.Add(new KarnoughComponent(0,default_value));
                 }
                 com.Add(x);
                 
@@ -153,7 +153,7 @@ namespace Karnaugh_Logic
             {
                 foreach(List<IKarnoughComponent> x_list in y_list)
                 {
-                    x_list.Add(new KarnoughComponent());
+                    x_list.Add(new KarnoughComponent(0,default_value));
                 }
             }
             x_max++;
