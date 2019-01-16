@@ -127,13 +127,11 @@ namespace Karnaugh_Logic
             IKarnoughLogic outputVal = new KarnoughLogic();
             outputVal.valueNames = map.valueNames;
 
-            //List<List<bool>> valuelists = new List<List<bool>>();
-
+            List<List<bool>> valuelists = new List<List<bool>>();
 
             //とりあえずBlockIDが10まで
             for(byte i = 1; i < 10; i++)
             {
-                List<List<bool>> valuelists = new List<List<bool>>();
                 List<IAxisKarnoughComponent> com = map.getBlockIDList(i);
                 List<TruthValue> truthval = new List<TruthValue>(); ;
                 if (com.Count == 0)
@@ -177,6 +175,30 @@ namespace Karnaugh_Logic
                     truthval.Add(result);
                 }
                 outputVal.values.Add(truthval);
+            }
+
+            //未定義の部分(blockid=0)
+            List<IAxisKarnoughComponent> nodefinedBool = map.getBlockIDList(0);
+            foreach (IAxisKarnoughComponent c in nodefinedBool)
+            {
+                if (c.values == TruthValue.True)
+                {
+                    List<bool> valList = axisX(map.valueNames.Count(), c.x);
+                    valList.AddRange(axisY(map.valueNames.Count(), c.y));
+                    List<TruthValue> val = new List<TruthValue>();
+                    foreach (bool b in valList)
+                    {
+                        if (b == true)
+                        {
+                            val.Add(TruthValue.True);
+                        }
+                        else
+                        {
+                            val.Add(TruthValue.False);
+                        }
+                    }
+                    outputVal.values.Add(val);
+                }
             }
 
             return outputVal;
