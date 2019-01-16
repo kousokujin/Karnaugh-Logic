@@ -111,7 +111,7 @@ namespace Karnaugh_Logic.Interfaces
 
 
     /// <summary>
-    /// カルノー図インターフェース
+    /// カルノー図データのインターフェース
     /// </summary>
     public interface IKarnoughMap : IValueName
     {

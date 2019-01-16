@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Karnaugh_Logic.Interfaces;
+
 namespace Karnaugh_Logic
 {
     /// <summary>
@@ -29,6 +31,11 @@ namespace Karnaugh_Logic
             System.Console.WriteLine("drawbefore");
             //drawer = new KarnaughGraphDraw(this);
             drawer.Paint();
+        }
+
+        public void testDraw(IKarnoughMap map)
+        {
+            drawer.Value2Map(map);
         }
     }
 }
