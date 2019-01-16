@@ -127,12 +127,13 @@ namespace Karnaugh_Logic
             IKarnoughLogic outputVal = new KarnoughLogic();
             outputVal.valueNames = map.valueNames;
 
-            List<List<bool>> valuelists = new List<List<bool>>();
+            //List<List<bool>> valuelists = new List<List<bool>>();
 
 
             //とりあえずBlockIDが10まで
             for(byte i = 1; i < 10; i++)
             {
+                List<List<bool>> valuelists = new List<List<bool>>();
                 List<IAxisKarnoughComponent> com = map.getBlockIDList(i);
                 List<TruthValue> truthval = new List<TruthValue>(); ;
                 if (com.Count == 0)

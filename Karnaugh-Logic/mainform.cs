@@ -53,7 +53,7 @@ namespace Karnaugh_Logic
 
             KarnoughEngine eng = new KarnoughEngine();
             eng.python_env = PythonPathBox.Text;
-            eng.script = "jsontest.py";
+            eng.script = @"jsontest.py";
             IKarnoughMap map = genMap(eng, LogicTexBox.Text);
             string exp = genExp(eng, map);
             afterExpBox.Text = exp;
