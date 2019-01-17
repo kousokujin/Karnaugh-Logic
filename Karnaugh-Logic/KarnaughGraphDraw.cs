@@ -131,11 +131,11 @@ namespace Karnaugh_Logic
             {
                 if (i % 2 == 1)
                 {
-                    columCount = columCount + 2;
+                    columCount = columCount * 2;
                 }
                 else
                 {
-                    rowCount = rowCount + 2;
+                    rowCount = rowCount * 2;
                 }
             }
 
@@ -172,7 +172,7 @@ namespace Karnaugh_Logic
             var textBrush = new SharpDX.Direct2D1.SolidColorBrush(render, new RawColor4(1f, 1f, 1f, 1f));
 
             //列のインデックス
-            string[] columStr = valueStr(columCount / 2);
+            string[] columStr = valueStr(columCount);
             for (int i = 0; i < columCount; i++)
             {
                 int x_shift = margin + (RowWidth * 2);
@@ -181,11 +181,22 @@ namespace Karnaugh_Logic
 
                 int y_start = margin + ColumHeight;
                 int y_end = margin + (ColumHeight * 2);
-                render.DrawText(columStr[i], textFormat, new RawRectangleF(x_start, y_start, x_end, y_end), textBrush, DrawTextOptions.None);
+
+                TextFormat textTmpFormat;
+                if(columCount >= 8)
+                {
+                    textTmpFormat = new TextFormat(fontFactory, "メイリオ", 20.0f);
+                    textTmpFormat.TextAlignment = TextAlignment.Center;
+                }
+                else
+                {
+                    textTmpFormat = textFormat;
+                }
+                render.DrawText(columStr[i], textTmpFormat, new RawRectangleF(x_start, y_start, x_end, y_end), textBrush, DrawTextOptions.None);
             }
 
             //行のインデックス
-            string[] rowStr = valueStr(rowCount / 2);
+            string[] rowStr = valueStr(rowCount);
             for (int i = 0; i < rowCount; i++)
             {
                 int x_start = margin + RowWidth;
@@ -194,6 +205,7 @@ namespace Karnaugh_Logic
                 int y_shift = margin + (ColumHeight * 2);
                 int y_start = y_shift + (valueHeight * i) + (valueHeight/2-10);
                 int y_end = y_start + (valueHeight * (i + 1));
+
                 render.DrawText(rowStr[i], textFormat, new RawRectangleF(x_start, y_start, x_end, y_end), textBrush, DrawTextOptions.None);
             }
 
@@ -235,14 +247,14 @@ namespace Karnaugh_Logic
             int x_label_Xend = width - margin;
             int x_label_Ystart = margin;
             int x_label_Yend = margin + ColumHeight;
-            render.DrawText(getlabel(map,columCount/2,true), textFormat, new RawRectangleF(x_label_Xstart, x_label_Ystart, x_label_Xend, x_label_Yend), textBrush, DrawTextOptions.None);
+            render.DrawText(getlabel(map,valueCount,true), textFormat, new RawRectangleF(x_label_Xstart, x_label_Ystart, x_label_Xend, x_label_Yend), textBrush, DrawTextOptions.None);
 
             //行の変数名
             int y_label_Xstart = margin;
             int y_label_Xend = margin + RowWidth;
             int y_label_Ystart = margin + (ColumHeight * 2) + ((valueHeight * rowCount) / 2) - (10 * rowCount /4);
             int y_label_Yend = height - margin;
-            render.DrawText(getlabel(map, rowCount / 2, false), textFormat, new RawRectangleF(y_label_Xstart, y_label_Ystart, y_label_Xend, y_label_Yend), textBrush, DrawTextOptions.None);
+            render.DrawText(getlabel(map, valueCount, false), textFormat, new RawRectangleF(y_label_Xstart, y_label_Ystart, y_label_Xend, y_label_Yend), textBrush, DrawTextOptions.None);
 
             render.EndDraw();
         }
@@ -257,13 +269,13 @@ namespace Karnaugh_Logic
             string[] values;
             switch (valueCount)
             {
-                case 1:
+                case 2:
                     values = new string[] { "0", "1" };
                     break;
-                case 2:
+                case 4:
                     values = new string[]{ "00", "01", "11", "10" };
                     break;
-                case 3:
+                case 8:
                     values = new string[]{ "000", "001", "011", "010", "110", "111", "101", "100" };
                     break;
                 default:
@@ -277,13 +289,21 @@ namespace Karnaugh_Logic
         private string getlabel(IKarnoughMap com, int count,bool isXlabel)
         {
             string str = "";
-            
+
             if (isXlabel)
             {
+                int loop = 0;
                 for(int i = 0; i < count; i++)
                 {
+                    if(i % 2 == 0)
+                    {
+                        loop++;
+                    }
+                }
+                for(int i = 0; i < loop; i++)
+                {
                     str += com.valueNames[i];
-                    if(i != (count - 1))
+                    if(i != (loop - 1))
                     {
                         str += "/";
                     }
@@ -291,10 +311,18 @@ namespace Karnaugh_Logic
             }
             else
             {
-                int shift = com.valueNames.Count - count;
-                for (int i = 0; i < count; i++) {
+                int loop = 0;
+                for(int i = 0; i < count; i++)
+                {
+                    if(i %2 == 1)
+                    {
+                        loop++;
+                    }
+                }
+                int shift = com.valueNames.Count - loop;
+                for (int i = 0; i < loop; i++) {
                     str += com.valueNames[shift + i];
-                    if(i != (count - 1))
+                    if(i != (loop - 1))
                     {
                         str += "\n";
                     }
