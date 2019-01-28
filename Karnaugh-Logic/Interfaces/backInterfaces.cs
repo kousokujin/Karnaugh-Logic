@@ -160,7 +160,7 @@ namespace Karnaugh_Logic.Interfaces
         /// <summary>
         /// ブロック化後のブロック番号
         /// </summary>
-        byte blockValue { get; set; }
+        List<byte> blockValue { get; set; }
     }
 
     /// <summary>

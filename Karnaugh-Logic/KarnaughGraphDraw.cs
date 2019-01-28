@@ -332,8 +332,14 @@ namespace Karnaugh_Logic
             return str;
         }
 
-        private SolidColorBrush indexFontColor(int index)
+        private SolidColorBrush indexFontColor(List<byte> id)
         {
+            byte index = 0;
+            if(id.Count == 1)
+            {
+                index = id[0];
+            }
+
             switch (index)
             {
                 case 0:

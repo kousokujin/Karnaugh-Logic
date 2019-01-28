@@ -60,7 +60,7 @@ namespace Karnaugh_Logic
         {
             if(z_max <= z || y_max <= y || x_max <= x)
             {
-                return new KarnoughComponent(0,default_value);
+                return new KarnoughComponent(default_value);
             }
 
             List<List<IKarnoughComponent>> y_list = valueLists[z];
@@ -121,7 +121,7 @@ namespace Karnaugh_Logic
                 List<IKarnoughComponent> x = new List<IKarnoughComponent>();
                 for (int j = 0; j < x_max; j++)
                 {
-                    x.Add(new KarnoughComponent(0,default_value));
+                    x.Add(new KarnoughComponent(default_value));
                 }
                 y.Add(x);
             }
@@ -138,7 +138,7 @@ namespace Karnaugh_Logic
                 List<IKarnoughComponent> x = new List<IKarnoughComponent>();
                 for(int j = 0; j < x_max; j++)
                 {
-                    x.Add(new KarnoughComponent(0,default_value));
+                    x.Add(new KarnoughComponent(default_value));
                 }
                 com.Add(x);
                 
@@ -153,7 +153,7 @@ namespace Karnaugh_Logic
             {
                 foreach(List<IKarnoughComponent> x_list in y_list)
                 {
-                    x_list.Add(new KarnoughComponent(0,default_value));
+                    x_list.Add(new KarnoughComponent(default_value));
                 }
             }
             x_max++;
@@ -181,10 +181,13 @@ namespace Karnaugh_Logic
                     //var lst = Ylst.Where(x => x.blockValue == blockId);
                     foreach(IKarnoughComponent Xlst in Ylst)
                     {
-                        if(Xlst.blockValue == blockId)
+                        foreach (byte bID in Xlst.blockValue)
                         {
-                            AxisKarnoughComponent tmp = new AxisKarnoughComponent(Xlst, x, y, z);
-                            comlist.Add(tmp);
+                            if (bID == blockId)
+                            {
+                                AxisKarnoughComponent tmp = new AxisKarnoughComponent(Xlst, x, y, z);
+                                comlist.Add(tmp);
+                            }
                         }
                         x++;
                     }

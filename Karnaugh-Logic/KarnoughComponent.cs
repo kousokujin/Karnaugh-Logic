@@ -22,13 +22,19 @@ namespace Karnaugh_Logic
         /// ブロック化後のブロック番号。
         /// 未定義の場合は0
         /// </summary>
-        public byte blockValue { get; set; }
+        public List<byte> blockValue { get; set; }
 
-        public KarnoughComponent(byte blockValue = 0, TruthValue value = TruthValue.Null)
+        public KarnoughComponent(TruthValue value = TruthValue.Null)
+        {
+            this.blockValue = new List<byte>();
+            this.values = value;
+
+        }
+
+        public KarnoughComponent(List<byte> blockValue,TruthValue value = TruthValue.Null)
         {
             this.blockValue = blockValue;
             this.values = value;
-
         }
 
     }

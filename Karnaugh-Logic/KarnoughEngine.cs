@@ -45,6 +45,11 @@ namespace Karnaugh_Logic
             foreach(JsonKarnoughComponent i in map.map)
             {
                 map.setMapPoint(i, i.x, i.y,i.z);
+
+                foreach(int id in i.block_id)
+                {
+                    i.blockValue.Add((byte)id);
+                }
             }
 
 
@@ -391,16 +396,6 @@ namespace Karnaugh_Logic
                 }
             }
         }
-        public int block_id
-        {
-            set
-            {
-                blockValue = (byte)value;
-            }
-            get
-            {
-                return blockValue;
-            }
-        }
+        public List<int> block_id;
     }
 }
