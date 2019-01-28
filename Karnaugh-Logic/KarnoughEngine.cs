@@ -48,7 +48,10 @@ namespace Karnaugh_Logic
 
                 foreach(int id in i.block_id)
                 {
-                    i.blockValue.Add((byte)id);
+                    if (id != 0)
+                    {
+                        i.blockValue.Add((byte)id);
+                    }
                 }
             }
 
