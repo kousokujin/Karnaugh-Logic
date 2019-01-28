@@ -236,10 +236,54 @@ namespace Karnaugh_Logic
                     }
 
                     var MaptextFormat = new TextFormat(fontFactory, "メイリオ", 30.0f);
-                    var mapBrush = indexFontColor(map.getMapPoint(j, i).blockValue);
+                    var mapBrush = indexFontColor(0);
                     MaptextFormat.TextAlignment = TextAlignment.Center;
                     render.DrawText(s, MaptextFormat, new RawRectangleF(xStartCell, yStartCell, xEndCell, yEndCell), mapBrush, DrawTextOptions.None);
                 }
+            }
+
+            //囲む(blockid=10まで)
+            for (byte i = 1; i < 10; i++)
+            {
+                List<IAxisKarnoughComponent> com = map.getBlockIDList(i);
+                if (com.Count == 0)
+                {
+                    break;
+                }
+
+                int maxX = 0;
+                int maxY = 0;
+                int minX = 16;
+                int minY = 16;
+
+                foreach (IAxisKarnoughComponent c in com)
+                {
+                    if(maxX < c.x)
+                    {
+                        maxX = c.x;
+                    }
+                    if(minX > c.x)
+                    {
+                        minX = c.x;
+                    }
+                    if(maxY < c.y)
+                    {
+                        maxY = c.y;
+                    }
+                    if(minY > c.y)
+                    {
+                        minY = c.y;
+                    }
+                }
+
+                var color = indexFontColor(i);
+                int rectMargin = 10;
+                int startX = (margin + (RowWidth * 2) + (valueWidth * minX)) +rectMargin;
+                int endX = (margin + (RowWidth * 2) + (valueWidth * (maxX + 1))) - rectMargin;
+                int startY = (margin + (ColumHeight * 2) + (valueHeight * minY)) + rectMargin;
+                int endY = (margin + (ColumHeight * 2) + (valueHeight * (maxY + 1))) - rectMargin;
+                render.DrawRectangle(new RawRectangleF(startX, startY, endX, endY), color);
+
             }
 
             //列の変数名
@@ -332,15 +376,9 @@ namespace Karnaugh_Logic
             return str;
         }
 
-        private SolidColorBrush indexFontColor(List<byte> id)
+        private SolidColorBrush indexFontColor(byte id)
         {
-            byte index = 0;
-            if(id.Count == 1)
-            {
-                index = id[0];
-            }
-
-            switch (index)
+            switch (id)
             {
                 case 0:
                     return new SharpDX.Direct2D1.SolidColorBrush(render, new RawColor4(1f, 1f, 1f, 1f));
