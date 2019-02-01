@@ -91,11 +91,19 @@ namespace Karnaugh_Logic
         private string SolveMap(string logicExp)
         {
             List<string> args = new List<string>();
-            args.Add(logicExp);
-
+            args.Add(convertStr(logicExp));
             string json = runPython(script, args);
 
             return json;
+        }
+
+        private string convertStr(string logicExp)
+        {
+            string outputStr = logicExp.Replace("+", " + ");
+            outputStr = outputStr.Replace("*", " ･ ");
+            //outputStr = outputStr.Replace("/", " /");
+
+            return outputStr;
         }
 
         /// <summary>

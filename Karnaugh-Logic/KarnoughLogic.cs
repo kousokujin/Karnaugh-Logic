@@ -77,7 +77,7 @@ namespace Karnaugh_Logic
 
         private string notExp(string str)
         {
-            return string.Format("not({0})", str);
+            return string.Format("/({0})", str);
         }
 
         private bool checkNullIndex(int point,List<TruthValue> values)
