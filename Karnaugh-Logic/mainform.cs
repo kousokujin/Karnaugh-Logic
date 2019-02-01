@@ -19,29 +19,13 @@ namespace Karnaugh_Logic
         public mainWindow()
         {
             InitializeComponent();
+            PythonPathBox.Text = loadConfig();
             karnaughCnt = new KarnaughGraphControl();
             karnaughCnt.Width = this.mainSplitContainer.Panel2.Width;
             karnaughCnt.Height = this.mainSplitContainer.Panel2.Height;
             this.mainSplitContainer.Panel2.Controls.Add(karnaughCnt);
             statusLabel.Text = "準備完了";
 
-        }
-
-        private void mainWindow_Paint(object sender, PaintEventArgs e)
-        {
-            //device.Clear(ClearFlags.Target, Color.FromArgb(0x333333), 1.0f, 0);
-            //device.BeginScene();
-            //device.EndScene();
-            //device.Present();
-        }
-
-        private void mainWindow_FormClosed(object sender, FormClosedEventArgs e)
-        {
-           // if (device != null)
-            //{
-            //    device.Dispose();
-            //    device = null;
-           //}
         }
 
         private async void RunButton_Click(object sender, EventArgs e)
@@ -82,6 +66,7 @@ namespace Karnaugh_Logic
             if(PythonFileBrowser.ShowDialog() == DialogResult.OK)
             {
                 PythonPathBox.Text = PythonFileBrowser.FileName;
+                saveConfig();
             }
         }
 
@@ -90,5 +75,52 @@ namespace Karnaugh_Logic
         {
             Application.Exit();
         }
+
+        //設定ファイルの保存
+        private void saveConfig()
+        {
+            //保存先のファイル名
+            string fileName = @"config.xml";
+
+            config obj = new config();
+            obj.pythonpath = PythonPathBox.Text;
+
+
+            System.Xml.Serialization.XmlSerializer serializer =
+                new System.Xml.Serialization.XmlSerializer(typeof(config));
+            //書き込むファイルを開く（UTF-8 BOM無し）
+            System.IO.StreamWriter sw = new System.IO.StreamWriter(
+                fileName, false, new System.Text.UTF8Encoding(false));
+            //シリアル化し、XMLファイルに保存する
+            serializer.Serialize(sw, obj);
+            //ファイルを閉じる
+            sw.Close();
+        }
+
+        //設定ファイルの読み込み
+        private string loadConfig()
+        {
+            string fileName = @"config.xml";
+
+            if(File.Exists(fileName) == false)
+            {
+                return "";
+            }
+
+            System.Xml.Serialization.XmlSerializer serializer =
+                new System.Xml.Serialization.XmlSerializer(typeof(config));
+            System.IO.StreamReader sr = new System.IO.StreamReader(
+                fileName, new System.Text.UTF8Encoding(false));
+            config obj = (config)serializer.Deserialize(sr);
+            //ファイルを閉じる
+            sr.Close();
+
+            return obj.pythonpath;
+        }
+    }
+
+    public class config
+    {
+        public string pythonpath;
     }
 }

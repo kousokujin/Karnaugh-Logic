@@ -34,7 +34,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.menu = new System.Windows.Forms.ToolStripDropDownButton();
             this.Exit_item = new System.Windows.Forms.ToolStripMenuItem();
-            this.バージョンToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.versionbutton = new System.Windows.Forms.ToolStripMenuItem();
             this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
             this.label3 = new System.Windows.Forms.Label();
             this.PythonPathBox = new System.Windows.Forms.TextBox();
@@ -83,7 +83,7 @@
             this.menu.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.menu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Exit_item,
-            this.バージョンToolStripMenuItem});
+            this.versionbutton});
             this.menu.Image = ((System.Drawing.Image)(resources.GetObject("menu.Image")));
             this.menu.ImageTransparentColor = System.Drawing.Color.LightSteelBlue;
             this.menu.Name = "menu";
@@ -99,11 +99,11 @@
             this.Exit_item.Text = "終了";
             this.Exit_item.Click += new System.EventHandler(this.Exit_item_Click);
             // 
-            // バージョンToolStripMenuItem
+            // versionbutton
             // 
-            this.バージョンToolStripMenuItem.Name = "バージョンToolStripMenuItem";
-            this.バージョンToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.バージョンToolStripMenuItem.Text = "バージョン";
+            this.versionbutton.Name = "versionbutton";
+            this.versionbutton.Size = new System.Drawing.Size(180, 22);
+            this.versionbutton.Text = "バージョン";
             // 
             // mainSplitContainer
             // 
@@ -212,7 +212,6 @@
             this.MaximizeBox = false;
             this.Name = "mainWindow";
             this.Text = "カルノー図簡略化ツール";
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.mainWindow_Paint);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -242,7 +241,7 @@
         private System.Windows.Forms.OpenFileDialog PythonFileBrowser;
         private System.Windows.Forms.ToolStripDropDownButton menu;
         private System.Windows.Forms.ToolStripMenuItem Exit_item;
-        private System.Windows.Forms.ToolStripMenuItem バージョンToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem versionbutton;
     }
 }
 
