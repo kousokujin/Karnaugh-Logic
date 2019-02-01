@@ -28,20 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainWindow));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.menu = new System.Windows.Forms.ToolStripDropDownButton();
+            this.Exit_item = new System.Windows.Forms.ToolStripMenuItem();
+            this.バージョンToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.label3 = new System.Windows.Forms.Label();
+            this.PythonPathBox = new System.Windows.Forms.TextBox();
+            this.PythonPathButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.afterExpBox = new System.Windows.Forms.TextBox();
             this.RunButton = new System.Windows.Forms.Button();
             this.LogicTexBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.PythonPathButton = new System.Windows.Forms.Button();
-            this.PythonPathBox = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.PythonFileBrowser = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.SuspendLayout();
@@ -65,11 +70,40 @@
             // 
             // toolStrip1
             // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menu});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(800, 25);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // menu
+            // 
+            this.menu.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.menu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Exit_item,
+            this.バージョンToolStripMenuItem});
+            this.menu.Image = ((System.Drawing.Image)(resources.GetObject("menu.Image")));
+            this.menu.ImageTransparentColor = System.Drawing.Color.LightSteelBlue;
+            this.menu.Name = "menu";
+            this.menu.RightToLeftAutoMirrorImage = true;
+            this.menu.Size = new System.Drawing.Size(53, 22);
+            this.menu.Text = "メニュー";
+            this.menu.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // Exit_item
+            // 
+            this.Exit_item.Name = "Exit_item";
+            this.Exit_item.Size = new System.Drawing.Size(180, 22);
+            this.Exit_item.Text = "終了";
+            this.Exit_item.Click += new System.EventHandler(this.Exit_item_Click);
+            // 
+            // バージョンToolStripMenuItem
+            // 
+            this.バージョンToolStripMenuItem.Name = "バージョンToolStripMenuItem";
+            this.バージョンToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.バージョンToolStripMenuItem.Text = "バージョン";
             // 
             // mainSplitContainer
             // 
@@ -91,6 +125,32 @@
             this.mainSplitContainer.Size = new System.Drawing.Size(800, 403);
             this.mainSplitContainer.SplitterDistance = 266;
             this.mainSplitContainer.TabIndex = 3;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(14, 219);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(88, 12);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Python実行環境";
+            // 
+            // PythonPathBox
+            // 
+            this.PythonPathBox.Location = new System.Drawing.Point(12, 237);
+            this.PythonPathBox.Name = "PythonPathBox";
+            this.PythonPathBox.Size = new System.Drawing.Size(251, 19);
+            this.PythonPathBox.TabIndex = 6;
+            // 
+            // PythonPathButton
+            // 
+            this.PythonPathButton.Location = new System.Drawing.Point(188, 262);
+            this.PythonPathButton.Name = "PythonPathButton";
+            this.PythonPathButton.Size = new System.Drawing.Size(75, 23);
+            this.PythonPathButton.TabIndex = 5;
+            this.PythonPathButton.Text = "参照";
+            this.PythonPathButton.UseVisualStyleBackColor = true;
+            this.PythonPathButton.Click += new System.EventHandler(this.PythonPathButton_Click);
             // 
             // label2
             // 
@@ -136,32 +196,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "論理式";
             // 
-            // PythonPathButton
-            // 
-            this.PythonPathButton.Location = new System.Drawing.Point(188, 262);
-            this.PythonPathButton.Name = "PythonPathButton";
-            this.PythonPathButton.Size = new System.Drawing.Size(75, 23);
-            this.PythonPathButton.TabIndex = 5;
-            this.PythonPathButton.Text = "参照";
-            this.PythonPathButton.UseVisualStyleBackColor = true;
-            this.PythonPathButton.Click += new System.EventHandler(this.PythonPathButton_Click);
-            // 
-            // PythonPathBox
-            // 
-            this.PythonPathBox.Location = new System.Drawing.Point(12, 237);
-            this.PythonPathBox.Name = "PythonPathBox";
-            this.PythonPathBox.Size = new System.Drawing.Size(251, 19);
-            this.PythonPathBox.TabIndex = 6;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 219);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(88, 12);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Python実行環境";
-            // 
             // PythonFileBrowser
             // 
             this.PythonFileBrowser.FileName = "openFileDialog1";
@@ -181,6 +215,8 @@
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.mainWindow_Paint);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.mainSplitContainer.Panel1.ResumeLayout(false);
             this.mainSplitContainer.Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();
@@ -204,6 +240,9 @@
         private System.Windows.Forms.TextBox PythonPathBox;
         private System.Windows.Forms.Button PythonPathButton;
         private System.Windows.Forms.OpenFileDialog PythonFileBrowser;
+        private System.Windows.Forms.ToolStripDropDownButton menu;
+        private System.Windows.Forms.ToolStripMenuItem Exit_item;
+        private System.Windows.Forms.ToolStripMenuItem バージョンToolStripMenuItem;
     }
 }
 

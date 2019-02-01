@@ -23,6 +23,7 @@ namespace Karnaugh_Logic
             karnaughCnt.Width = this.mainSplitContainer.Panel2.Width;
             karnaughCnt.Height = this.mainSplitContainer.Panel2.Height;
             this.mainSplitContainer.Panel2.Controls.Add(karnaughCnt);
+            statusLabel.Text = "準備完了";
 
         }
 
@@ -43,21 +44,25 @@ namespace Karnaugh_Logic
            //}
         }
 
-        private void RunButton_Click(object sender, EventArgs e)
+        private async void RunButton_Click(object sender, EventArgs e)
         {
             if(File.Exists(PythonPathBox.Text) == false)
             {
                 MessageBox.Show("指定したPython実行環境が存在しません。","Pythonエラー");
                 return;
             }
+            statusLabel.Text = "簡略化中";
 
             KarnoughEngine eng = new KarnoughEngine();
             eng.python_env = PythonPathBox.Text;
             eng.script = @"jsontest.py";
-            IKarnoughMap map = genMap(eng, LogicTexBox.Text);
+            IKarnoughMap map = await Task.Run(()=> genMap(eng, LogicTexBox.Text));
+
             string exp = genExp(eng, map);
             afterExpBox.Text = exp;
             karnaughCnt.testDraw(map);
+
+            statusLabel.Text = "簡略化完了";
         }
 
         private IKarnoughMap genMap(KarnoughEngine eng,string exp)
@@ -71,12 +76,19 @@ namespace Karnaugh_Logic
             return log.genLogicExpression();
         }
 
+        //pythonの環境設定されたとき
         private void PythonPathButton_Click(object sender, EventArgs e)
         {
             if(PythonFileBrowser.ShowDialog() == DialogResult.OK)
             {
                 PythonPathBox.Text = PythonFileBrowser.FileName;
             }
+        }
+
+        //メニューの終了ボタン
+        private void Exit_item_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
