@@ -41,12 +41,15 @@ def add_block_id(val_map, circleinst):
                         val_map[i - x][j - y]['block_id'].append(id_num)
 
 add_block_id(val_map, simplification.size12)
-add_block_id(val_map, simplification.size21)
-add_block_id(val_map, simplification.size22)
-add_block_id(val_map, simplification.size14)
-add_block_id(val_map, simplification.size41)
-add_block_id(val_map, simplification.size24)
-add_block_id(val_map, simplification.size42)
+if dim >= 2:
+    add_block_id(val_map, simplification.size21)
+    add_block_id(val_map, simplification.size22)
+if dim >= 3:
+    add_block_id(val_map, simplification.size41)
+if dim >= 4:
+    add_block_id(val_map, simplification.size14)
+    add_block_id(val_map, simplification.size24)
+    add_block_id(val_map, simplification.size42)
 
 #JSON出力のため，１次元に直す
 val_map = np.reshape(val_map, nx*ny)

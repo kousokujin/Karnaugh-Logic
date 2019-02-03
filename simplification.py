@@ -152,37 +152,49 @@ class Duplication():
 dup = np.zeros((nx, ny))
 
 size12 = Circle(1, 2)
-size21 = Circle(2, 1)
-size22 = Circle(2, 2)
-size14 = Circle(1, 4)
-size41 = Circle(4, 1)
-size24 = Circle(2, 4)
-size42 = Circle(4, 2)
+if num >= 2:
+    size21 = Circle(2, 1)
+    size22 = Circle(2, 2)
+if num >= 3:
+    size41 = Circle(4, 1)
+if num >= 4:
+    size14 = Circle(1, 4)
+    size24 = Circle(2, 4)
+    size42 = Circle(4, 2)
 
 size12.detect_circle(karn)
-size21.detect_circle(karn)
-size22.detect_circle(karn)
-size14.detect_circle(karn)
-size41.detect_circle(karn)
-size24.detect_circle(karn)
-size42.detect_circle(karn)
+if num >= 2:
+    size21.detect_circle(karn)
+    size22.detect_circle(karn)
+if num >= 3:
+    size41.detect_circle(karn)
+if num >= 4:
+    size14.detect_circle(karn)
+    size24.detect_circle(karn)
+    size42.detect_circle(karn)
 
 size12.detect_dup(dup)
-size21.detect_dup(dup)
-size22.detect_dup(dup)
-size41.detect_dup(dup)
-size14.detect_dup(dup)
-size24.detect_dup(dup)
-size42.detect_dup(dup)
+if num >= 2:
+    size21.detect_dup(dup)
+    size22.detect_dup(dup)
+if num >= 3:
+    size41.detect_dup(dup)
+if num >= 4:
+    size14.detect_dup(dup)
+    size24.detect_dup(dup)
+    size42.detect_dup(dup)
 
 duplication = Duplication(dup)
 duplication.deletion(size12)
-duplication.deletion(size21)
-duplication.deletion(size22)
-duplication.deletion(size14)
-duplication.deletion(size41)
-duplication.deletion(size24)
-duplication.deletion(size42)
+if num >= 2:
+    duplication.deletion(size21)
+    duplication.deletion(size22)
+if num >= 3:
+    duplication.deletion(size41)
+if num >= 4:
+    duplication.deletion(size14)
+    duplication.deletion(size24)
+    duplication.deletion(size42)
 
 
 
@@ -198,33 +210,33 @@ duplication.deletion(size42)
 
 #簡単化された論理式を出力するため
 #カルノー図各セルにおける，各変数の符号を格納するsignリスト作成
-temp = np.zeros((num, 2**num))
-ls = np.empty(num)
+# temp = np.zeros((num, 2**num))
+# ls = np.empty(num)
 
-def substitute(temp, var, ls, n=0, count=[]):
+# def substitute(temp, var, ls, n=0, count=[]):
 
-    num = len(var)
+#     num = len(var)
 
-    for i in [-1, 1]:
-        ls[n] = i
-        if(n < num - 1):
-            substitute(temp, var, ls, n+1)
+#     for i in [-1, 1]:
+#         ls[n] = i
+#         if(n < num - 1):
+#             substitute(temp, var, ls, n+1)
 
-        if(n == num - 1):
-            # print(ls, index)
-            count.append([])
-            temp[:, len(count) - 1] = ls[:]
+#         if(n == num - 1):
+#             # print(ls, index)
+#             count.append([])
+#             temp[:, len(count) - 1] = ls[:]
 
-substitute(temp, var, ls)
-sign = np.empty((num, nx, ny))
+# substitute(temp, var, ls)
+# sign = np.empty((num, nx, ny))
 
-for n in range(num):
-    sign[n] = temp[n].reshape(nx, ny)
+# for n in range(num):
+#     sign[n] = temp[n].reshape(nx, ny)
 
-for n in range(num):
-    if num <= 2:
-        sign[n] = temp[n]
-    elif num == 3:
-        sign[n] = np.dot(elem, sign[n])
-    elif num == 4:
-        sign[n] = np.dot(np.dot(elem, sign[n]), elem)
+# for n in range(num):
+#     if num <= 2:
+#         sign[n] = temp[n]
+#     elif num == 3:
+#         sign[n] = np.dot(elem, sign[n])
+#     elif num == 4:
+#         sign[n] = np.dot(np.dot(elem, sign[n]), elem)
